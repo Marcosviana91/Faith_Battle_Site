@@ -41,6 +41,8 @@ def stats(request, user_id:int):
 @api.post("/auth")
 def auth(request, user: AuthUser):
     _user = User.objects.filter(username=user.username).first()
+    if _user is None:
+        return HttpResponseBadRequest('username not founded')
     if _user.is_active == False:
         return HttpResponseForbidden('user deactivated')
     authenticated_user = authenticate(
