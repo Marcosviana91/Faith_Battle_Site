@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faith Battle - Fan Page</title>
+</head>
+
+<body>
+    <header>
+        <h1>Faith Battle - Fã Page</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Sobre o Jogo</h2>
+            <p>O Faith Battle é um jogo de cartas com temática bíblica.</p>
+            <img src="https://static.wixstatic.com/media/311bd2_0b0db650cd364987b5cba0fa22628858~mv2.jpg/v1/fill/w_783,h_486,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/311bd2_0b0db650cd364987b5cba0fa22628858~mv2.jpg"
+                alt="Dois tabuleiros do jogo com diversas cartas jogadas, uma partida em andamento.">
+            <figure>
+                <img src="https://static.wixstatic.com/media/311bd2_3395a40269ea49329486317dfd6116f1~mv2.jpg/v1/fill/w_341,h_750,al_c,q_80,enc_auto/311bd2_3395a40269ea49329486317dfd6116f1~mv2.jpg"
+                    alt="Lucas Duarte e Beatriz dos Santos">
+                <figcaption>Lucas Duarte e Beatriz dos Santos, missionarios a mais de 10 anos trabalhando com jovens e
+                    adolescentes pelo mundo.</legend>
+            </figure>
+            </p>
+            <p>Visite o <a href="https://www.faithbattle.com.br/" target="_blank">site oficial</a> para saber mais sobre
+                o jogo, cartas, regras, lançamentos, grupos, etc.</p>
+            <p>© 2023 Faith Battle Company . Cnpj: 49.249.207/0001-93 Todos os Direitos Reservados. Deus seja louvado!
+            </p>
+        </section>
+        <section>
+            <h2>Sobre o desenvolvedor deste projeto</h2>
+            <p>Aspirante a desenvolvedor de sistemas, busca neste projeto externar seu pontencial.</p>
+            <a href="https://github.com/Marcosviana91/" target="_blank">Github</a>
+            <a href="https://marcosvianadev.com.br/" target="_blank">Site</a>
+        </section>
+        <section>
+            <h2>Sobre o Projeto</h2>
+            <p>
+                Este site faz parte de um projeto individual e não tem vínculo com o jogo oficial ou seus criadores. O
+                objetivo deste site é divulgar o andamento do desenvolvimento do jogo digital <strong>não
+                    oficial</strong>. Gosto de dizer que ainda está em alpha e será constantemente desenvolvido.
+            </p>
+            <p>A meta é fomentar a comunidade do jogo físico.</p>
+            <p>Este projeto consiste em 4 partes:</p>
+            <ul>
+                <li>Front-End: aplicativo móvel para Android.</li>
+                <li>Back-End: servidor do jogo.</li>
+                <li>Back-End: servidor de autenticação e site.</li>
+                <li>Back-End: Bancos de dados (Postgre e Mongo).</li>
+            </ul>
+            <p>Back-End's dockerizados individualmente.</p>
+            <div>
+                <h3>Front-End: Aplicativo móvel</h3>
+                <p>Um aplicativo simples desenvolvido em React Native, porém suficiente para jogar. O design, animações,
+                    tutorial, UI/UX foram deixados para um outro momento. Mesmo assim vem sofrendo mudanças conforme o
+                    desenvolvimento avança.</p>
+                <h3>Back-End: Servidor do Jogo</h3>
+                <p>API em Python utilizando FastAPI, responsável por tratar as regras do jogo, como comparação de ataque
+                    e defesa entre heróis durante um combate, adição de efeitos de um milagre ou pecados e itens. Também
+                    é responsável pelo gerenciamento de salas, jogadores conectados e confirmação de tokens de
+                    authenticação.</p>
+                <h3>Back-End: Servidor de autenticação e site.</h3>
+                <p>Plataforma web desenvolvida em Django (Python), responsável por tratar authenticação de jogadores
+                    através da consulta em banco de dados. Ela se comunica com a API citada acima.</p>
+                <p>Através desta, será possível o jogador editar seus decks, analizar suas partidas e assistir outras
+                    partidas.</p>
+                <h3>Back-End: Bancos de dados (Postgre e Mongo).</h3>
+                <p>Um simples docker rodando uma imagem do PostgreSQL e outro do Mongo db. Por falta de compatibilidade
+                    com o hardware do servidor, o Mongo foi substituído pelo <a href="https://tinydb.readthedocs.io/"
+                        target="_blank">TinyDB</a>, um banco de dados minimalista, assim como o sqlite, porém em pythyon
+                    e orientado a documentos.</p>
+                <p>
+                    Os bancos armazenam dados do usuário e estatísticas do jogador, como XP, deck build,
+                    <em>conquistas, artes desbloqueadas, etc</em>
+                </p>
+            </div>
+        </section>
+    </main>
+    <footer>
+    </footer>
+</body>
