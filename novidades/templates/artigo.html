@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block 'head' %}
+<link rel="stylesheet" href="{% static 'novidades/novidades.css' %}">
+{% endblock %}
+
+{% block 'title' %}
+Faith Battle - {{artigo.titulo}}
+{% endblock%}
+
+{% block 'body' %}
+<div class="d-flex">
+    <main id="novidades" class="col-12 col-sm-9">
+        <article>
+            <div class="d-flex justify-content-between d-sm-block">
+                <!-- Artigo Anterior -->
+                {% if artigo_anterior %}
+                <button class="btn btn-primary btn_link d-sm-none" data-link="{% url 'artigo' artigo_anterior.id %}">
+                    <i class='bx bx-chevrons-left'></i>
+                </button>
+                {% else %}
+                <button disabled class="btn btn-primary d-sm-none">
+                    <i class='bx bx-chevrons-left'></i>
+                </button>
+                {% endif %}
+                <h1 class="text-center">{{artigo.titulo}}</h1>
+                <!-- Artigo Posterior -->
+                {% if proximo_artigo %}
+                <button class="btn btn-primary btn_link d-sm-none" data-link="{% url 'artigo' proximo_artigo.id %}">
+                    <i class='bx bx-chevrons-right'></i>
+                </button>
+                {% else %}
+                <button disabled class="btn btn-primary d-sm-none">
+                    <i class='bx bx-chevrons-right'></i>
+                </button>
+                {% endif %}
+            </div>
+            <img src="{{ artigo.img_capa.url}}" alt="" class="col-12">
+            <div id="django_content" hidden>{{artigo.conteudo}}</div>
+            <div id="html_content"></div>
+
+        </article>
+    </main>
+    <aside class="d-none d-sm-block col-3 d-flex flex-column ms-2 p-2">
+        <!-- Artigo Anterior -->
+        {% if artigo_anterior %}
+        <button class="btn btn-primary w-100 overflow-hidden btn_link"
+            data-link="{% url 'artigo' artigo_anterior.id %}">
+            <i class='bx bx-chevrons-left'></i>
+            Anterior: {{artigo_anterior.titulo}}
+        </button>
+        {% else %}
+        <button disabled class="btn btn-primary w-100">
+            <i class='bx bx-chevrons-left'></i>
+            Não há artigo anterior
+        </button>
+        {% endif %}
+        <!-- Artigo Posterior -->
+        {% if proximo_artigo %}
+        <button class="btn btn-primary w-100 overflow-hidden btn_link" data-link="{% url 'artigo' proximo_artigo.id %}">
+            <i class='bx bx-chevrons-right'></i>
+            Próximo: {{proximo_artigo.titulo}}
+        </button>
+        {% else %}
+        <button disabled class="btn btn-primary w-100">
+            <i class='bx bx-chevrons-right'></i>
+            Não há próximo artigo
+        </button>
+        {% endif %}
+    </aside>
+</div>
+<script src="{% static 'novidades/artigo.js' %}"></script>
+<script src="{% static 'novidades/novidades.js' %}"></script>
+{% endblock %}

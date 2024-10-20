@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block 'head' %}
+<link rel="stylesheet" href="{% static 'users/css/minhas_imagens.css' %}">
+{% endblock %}
+
+{% block 'title' %}
+Faith Battle - Minhas Imagens
+{% endblock%}
+
+{% block 'body' %}
+<section class="container">
+    <div class="col">
+        <form class="d-flex flex-row justify-content-between" action="{% url 'minhas_imagens' %}" method="post"
+            enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form}}
+            <button class="btn btn-primary w-25 mt-3 ms-2" type="submit">Enviar</button>
+        </form>
+    </div>
+</section>
+<section class="container mt-3">
+    <h1>Minhas Imagens</h1>
+    <label class="mb-2 w-100">
+        <span>Filtar: </span>
+        <input type="text" class="form-control" placeholder="Filtar por nome">
+    </label>
+    <div class="d-flex flex-wrap">
+        {% for image in all_images %}
+        <div class="imagem_container p-1 col-6 col-sm-4 col-md-2" data-bs-toggle="modal" data-bs-target="#cardModal">
+            <img src="../../{{user_media_url}}/{{image}}" class="w-100">
+            <p class="text-center">{{image}}</p>
+        </div>
+        {% endfor %}
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="cardModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex flex-column">
+                    <img id="modal_image" src="">
+                    <label for="modal_input">
+                        URL da imagem
+                    </label>
+                    <div class="d-flex flex-row">
+                        <input type="text" id="modal_input" value="" disabled class="bg-black bg-opacity-25 ps-2 w-100 me-2">
+                        <button class="btn btn-outline-primary">
+                            <i class='bx bx-copy'></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-danger">Apagar Imagem</button>
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="{% static 'users/js/minhas_imagens.js' %}"></script>
+{% endblock %}

@@ -6,7 +6,7 @@ from django.shortcuts import render
 # @login_required(login_url="/users/login")
 def site(request: HttpRequest):
     # print(request.user.id)
-    return render(request, 'plataforma.html')
+    return render(request, 'plataforma.html', {'player_site':'active'})
 
 def alpha_1_0_1(request: HttpRequest):
     return render(request, 'versions/alpha_1.0.1.html')

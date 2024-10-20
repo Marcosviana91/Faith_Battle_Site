@@ -1,0 +1,14 @@
+.imagem_container:hover {
+    transform: scale(1.1);
+}
+
+.imagem_container p {
+    font-size: small;
+}
+
+@media screen and (min-width: 372px) {
+    #modal_image {
+        max-height: 400px;
+    }
+
+}

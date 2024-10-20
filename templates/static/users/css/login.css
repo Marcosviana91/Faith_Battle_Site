@@ -1,0 +1,13 @@
+#login {
+    background-color: white;
+}
+
+#login #container {
+    max-width: 400px;
+    background-color: #000c;
+}
+
+#game_logo {
+    width: 200px;
+    height: 150px;
+}

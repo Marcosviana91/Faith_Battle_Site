@@ -1,18 +1,33 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
-<body>
-    <h1>
-        Logar
-    </h1>
-    <form action="{% url 'login' %}" method="post">  {% csrf_token %}
-        <input type="text" placeholder="nome de usuário" name="username">
-        <input type="password" placeholder="senha" name="password">
-        <input type="submit">
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block 'head' %}
+<link rel="stylesheet" href="{% static 'users/css/login.css' %}">
+{% endblock %}
+
+{% block 'title' %}Login{% endblock %}
+
+{% block 'body' %}
+<section id="login" class="d-flex flex-column align-items-center">
+    <img id="game_logo" src="{% static 'general/img/Faith_Batlle.png' %}" alt="Faith Battle logo">
+    <form action="{% url 'login' %}" method="post"> {% csrf_token %}
+        <div id="container" class="d-flex flex-column">
+            <label>
+                <p>Usuário:</p>
+                <input type="text" placeholder="nome de usuário" name="username">
+            </label>
+            <label>
+                <p>Senha:</p>
+                <input type="password" placeholder="senha" name="password">
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Logar</button>
+        <button type="button" class="btn btn-success">Criar Conta</button>
     </form>
-</body>
-</html>
+    <div>
+        Não tem conta? <a href="{% url 'cadastro' %}">Cadastre-se</a>.
+    </div>
+</section>
+<script src="{% static 'users/js/login.js' %}"></script>
+{% endblock %}

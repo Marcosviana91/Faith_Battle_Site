@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block 'head' %}
+<link rel="stylesheet" href="{% static 'novidades/enquete.css' %}">
+{% endblock %}
+
+{% block 'title' %}
+Faith Battle - Nova Enquete
+{% endblock%}
+
+{% block 'body' %}
+<div class="d-flex">
+    <main id="enquete" class="col-12 col-sm-9">
+        <form action="{% url 'nova_enquete' %}" method="post"> {% csrf_token %}
+            {{form}}
+            <div class="w-100 d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <button type="button" class="btn btn-danger">Cancelar</button>
+            </div>
+        </form>
+    </main>
+    <aside class="d-none d-sm-block col-3 d-flex flex-column ms-2 p-2">
+    </aside>
+</div>
+<script src="{% static 'novidades/enquete.js' %}"></script>
+{% endblock %}

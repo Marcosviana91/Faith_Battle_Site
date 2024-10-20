@@ -1,8 +1,14 @@
+import os
+
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
+from django.urls import reverse
+from django.contrib.auth import authenticate, login as login_user, logout as logout_user
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login as login_user
+from django.contrib.auth.decorators import login_required
 
+from faith_battle_site.settings import MEDIA_ROOT
+from .forms import UploadFileForm
 
 # Create your views here.
 
@@ -32,5 +38,61 @@ def login(request: HttpRequest):
     user = authenticate(username=username, password=password)
     if user:
         login_user(request, user)
-        return HttpResponseRedirect('/site')
+        return HttpResponseRedirect(reverse('perfil'))
     return HttpResponse('Auth invalido')
+
+
+def logout(request: HttpRequest):
+    logout_user(request)
+    return HttpResponseRedirect(reverse('login'))
+
+
+def perfil(request: HttpRequest):
+    print(request.user.is_authenticated)
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('login'))
+    logged_user = User.objects.get(username=request.user)
+    # user = authenticate(username=username, password=password)
+    # if user:
+    #     login_user(request, user)
+    #     return HttpResponseRedirect('/site')
+    return render(request, "logged_area.html", {
+        'perfil': 'active',
+        'logged_user': logged_user,
+    })
+
+
+@login_required(login_url="/users/login")
+def getImages(request: HttpRequest):
+    user_id = str(request.user.id)
+    user_path = os.path.join(
+            MEDIA_ROOT,
+            'users_images',
+            user_id
+        )
+    if not os.path.exists(user_path):
+        os.makedirs(user_path)
+        
+    user_media_dir = os.path.join(MEDIA_ROOT, "users_images", user_id)
+    user_media_url = os.path.join(os.path.basename(
+        MEDIA_ROOT), "users_images", user_id)
+    
+    if request.method == "POST":
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            imagem = form.files['imagem']
+            destination_file = os.path.join(user_media_dir, imagem.name)
+            with open(destination_file, "wb") as destination:
+                for chunk in imagem.chunks():
+                    destination.write(chunk)
+                
+    
+    else:
+        form = UploadFileForm()
+    # print(user_media_url)
+    all_images = os.listdir(user_media_dir)
+    return render(request, "minhas_imagens.html", {
+        'all_images': all_images,
+        'user_media_url': user_media_url,
+        'form': form,
+    })

@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block 'head' %}
+<link rel="stylesheet" href="{% static 'novidades/css/novidades.css' %}">
+{% endblock %}
+
+{% block 'title' %}
+Faith Battle - Novidades
+{% endblock%}
+
+{% block 'body' %}
+<div class="d-flex">
+    <main id="novidades" class="col-9">
+        <section id="destaques">
+            <h2 class="pt-2">Destaques</h2>
+            <!-- Inicio do Carousel -->
+            <div id="destaques_carousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    {% for artigo in destaques %}
+                    <button type="button" data-bs-target="#destaques_carousel" data-bs-slide-to="0" class="active"
+                        aria-current="true" aria-label="Slide 1"></button>
+                    {% endfor %}
+                </div>
+                <div class="carousel-inner">
+                    <!-- Carousel Itens -->
+                    {% for artigo in destaques %}
+                    <div class="carousel-item btn_link" data-link="{% url 'artigo' artigo.id %}">
+                        <img src="{{ artigo.img_capa.url}}" class="d-block w-100" alt="{{ artigo.titulo }}">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5 class="bg-black bg-opacity-75 py-2 rounded-pill">{{ artigo.titulo }}</h5>
+                            <span class="badge text-bg-info">{{artigo.tag_version}}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <!-- Carousel Buttons -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#destaques_carousel"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#destaques_carousel"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+        <section id="ultimos_artigos">
+            <h2 class="pt-2">Últimos artigos</h2>
+            <div class="row justify-content-around gap-3 p-2">
+                {% for artigo in ultimos_artigos %}
+                <div class="btn_link card col-md-5 col-lg-3" data-link="{% url 'artigo' artigo.id %}">
+                    <img src="{{ artigo.img_capa.url}}" alt="Sistema de movimentação" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            {{artigo.titulo}}
+                        </h5>
+                        <p class="card-text">
+                            {{artigo.conteudo}}
+                        </p>
+                        <span class="badge text-bg-info">{{artigo.tag_version}}</span>
+                        <span class="badge text-bg-secondary">{{artigo.data_hora_publicacao.date}}</span>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </section>
+    </main>
+    <aside class="col-3 d-flex flex-column ms-2 gap-1 p-2">
+        <h4 class="text-center">Todos os artigos</h4>
+        <input type="text" name="filtrar_artigo" id="filtrar_artigo" class="rounded-2" placeholder="Filtrar por título">
+        <div class="d-flex flex-column gap-1">
+            {% for artigo in todos_artigos %}
+            <div class="btn_link card flex-shrink-0 flex-grow-0" data-link="{% url 'artigo' artigo.id %}">
+                <div class="card-body bg-black bg-opacity-25">
+                    <h5 class="card-title">
+                        {{artigo.titulo}}
+                    </h5>
+                    <span class="badge text-bg-info">{{artigo.tag_version}}</span>
+                    <span class="badge text-bg-secondary">{{artigo.data_hora_publicacao.date}}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </aside>
+</div>
+<script src="{% static 'novidades/js/novidades.js' %}"></script>
+{% endblock %}

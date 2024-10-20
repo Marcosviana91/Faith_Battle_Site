@@ -1,0 +1,45 @@
+#novidades section#ultimos_artigos {
+    background-image: url('../img/background.png');
+    background-size: cover;
+    background-position: center;
+}
+
+#novidades section .card {
+    cursor: pointer;
+}
+
+#novidades section .card p {
+    height: 4.5em;
+    overflow: hidden;
+}
+
+#novidades section img {
+    height: 250px;
+}
+
+#novidades article img {
+    max-height: 500px;
+}
+
+#novidades article p {
+    text-indent: 0.5in;
+}
+
+aside > div {
+    height: 70vh;
+    overflow-y: scroll;
+}
+
+aside input {
+    padding-left: 8px;
+}
+
+aside input::placeholder {
+    padding-left: 8px;
+}
+
+aside div.card {
+    cursor: pointer;
+    overflow: hidden;
+    height: 80px;
+}
