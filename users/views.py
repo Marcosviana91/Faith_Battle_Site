@@ -46,7 +46,7 @@ def logout(request: HttpRequest):
     logout_user(request)
     return HttpResponseRedirect(reverse('login'))
 
-
+# Verificação de usuário manual
 def perfil(request: HttpRequest):
     print(request.user.is_authenticated)
     if not request.user.is_authenticated:
@@ -57,7 +57,7 @@ def perfil(request: HttpRequest):
         'logged_user': request.user,
     })
 
-
+# Decorador de verificação de usuário
 @login_required(login_url="/users/login")
 def getImages(request: HttpRequest):
     user_id = str(request.user.id)
@@ -91,4 +91,5 @@ def getImages(request: HttpRequest):
         'all_images': all_images,
         'user_media_url': user_media_url,
         'form': form,
+        'logged_user': request.user,
     })
