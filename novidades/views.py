@@ -9,6 +9,9 @@ from .forms import FormEnquetes
 
 # Create your views here.
 
+def site(request: HttpRequest):
+    # print(request.user.id)
+    return render(request, 'plataforma.html', {'player_site':'active'})
 
 def novidades(request: HttpRequest):
     destaques = Artigo.objects.all()

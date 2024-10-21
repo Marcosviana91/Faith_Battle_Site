@@ -1,7 +1,22 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
+{% block 'head' %}
+<link rel="stylesheet" href="{% static '/users/css/logged_area.css' %}">
+{% endblock %}
+
 {% block 'title' %}Faith Battle - Perfil{% endblock %}
 
 {% block 'body' %}
-<h2>{{logged_user.username}}</h2>
+<div id="logged_header" class="d-flex justify-content-between p-1 bg-dark-subtle">
+    <p>{{logged_user.username}}</p>
+    <a href="{% url 'logout' %}">
+        <i class='bx bx-exit'></i>
+        Sair
+    </a>
+
+</div>
+
+<script src="{% static '/users/js/logged_area.js' %}"></script>
 {% endblock %}

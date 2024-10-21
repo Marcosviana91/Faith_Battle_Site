@@ -21,7 +21,7 @@
 </head>
 
 <body class="container bg-primary bg-opacity-50">
-    <header class="d-flex justify-content-end">
+    <header class="d-flex justify-content-end justify-content-sm-start">
         <!-- Mobile -->
         <button id="btn_menu" class="btn btn-dark d-sm-none">
             <i class='bx bx-menu'></i>
@@ -32,19 +32,19 @@
                     <button class="nav-link rounded-1 bg-dark {{player_site}} w-100 btn_link"
                         data-link="{% url 'player_site' %}">
                         <i class='bx bxs-home'></i>
-                        <span class="links_name">Página inicial</span>
+                        <span>Página inicial</span>
                     </button>
                 </li>
                 <li class="nav-item">
                     <button class="nav-link rounded-1 bg-dark {{novidades}} w-100 btn_link" data-link="{% url 'novidades' %}">
                         <i class='bx bx-news'></i>
-                        <span class="links_name">Novidades</span>
+                        <span>Novidades</span>
                     </button>
                 </li>
                 <li class="nav-item">
                     <button class="nav-link rounded-1 bg-dark {{perfil}} w-100 btn_link" data-link="{% url 'perfil' %}">
                         <i class='bx bx-user'></i>
-                        <span class="links_name">Perfil</span>
+                        <span>Perfil</span>
                     </button>
                 </li>
             </ul>
@@ -55,21 +55,21 @@
                 <li class="nav-item">
                     <button class="nav-link rounded-1 bg-dark {{player_site}} btn_link" data-link="{% url 'player_site' %}">
                         <i class='bx bxs-home'></i>
-                        <span class="links_name">Página inicial</span>
+                        <span>Página inicial</span>
                     </button>
                     <span class="tooltip">Página inicial</span>
                 </li>
                 <li class="nav-item">
                     <button class="nav-link rounded-1 bg-dark {{novidades}} btn_link" data-link="{% url 'novidades' %}">
                         <i class='bx bx-news'></i>
-                        <span class="links_name">Novidades</span>
+                        <span>Novidades</span>
                     </button>
                     <span class="tooltip">Novidades</span>
                 </li>
                 <li class="nav-item">
                     <button class="nav-link rounded-1 bg-dark {{perfil}} btn_link"  data-link="{% url 'perfil' %}">
                         <i class='bx bx-user'></i>
-                        <span class="links_name">Perfil</span>
+                        <span>Perfil</span>
                     </button>
                     <span class="tooltip">Perfil</span>
                 </li>
@@ -79,6 +79,27 @@
 
     {% block 'body' %}
     {% endblock %}
+    {% if logged_user.is_staff %}
+<nav id="staff_menu" class="bg-dark bg-opacity-75 p-2 ">
+    <span id="btn_staff_menu" class="btn btn-dark">
+        <i class='bx bxs-arrow-from-left'></i>
+    </span>
+    <div class="d-flex flex-column gap-1">
+        <div id="staff_menu_item" class="w-100 rounded-2 bg-dark text-light p-2 btn_link" data-link="{% url 'minhas_imagens' %}">
+            <i class='bx bx-news'></i>
+            <span>Meus Artigos</span>
+        </div>
+        <div id="staff_menu_item" class="w-100 rounded-2 bg-dark text-light p-2 btn_link" data-link="{% url 'minhas_imagens' %}">
+            <i class='bx bx-images'></i>
+            <span>Minhas Imagens</span>
+        </div>
+        <div id="staff_menu_item" class="w-100 rounded-2 bg-dark text-light p-2 btn_link" data-link="{% url 'minhas_imagens' %}">
+            <i class='bx bx-joystick'></i>
+            <span>Meus Jogos</span>
+        </div>
+    </div>
+</nav>
+{% endif %}
     <div id="footer_placeholder">
     </div>
     <!-- Button to move to up -->

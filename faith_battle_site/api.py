@@ -5,20 +5,20 @@ from django.http import HttpResponseForbidden, HttpResponseBadRequest
 from ninja import NinjaAPI
 
 from .schemas import AuthUser, NewUser
-from player_site.models import Card
+# from player_site.models import Card
 from .security import createAccessToken
 
 
 api = NinjaAPI()
 
 
-@api.get("/")
-def stats(request):
-    active_cards = Card.objects.filter(is_active=True).order_by("slug")
-    active_cards_ = list(map(lambda x: x.slug, active_cards))
-    return {
-        'active_cards': active_cards_
-    }
+# @api.get("/")
+# def stats(request):
+#     active_cards = Card.objects.filter(is_active=True).order_by("slug")
+#     active_cards_ = list(map(lambda x: x.slug, active_cards))
+#     return {
+#         'active_cards': active_cards_
+#     }
 
 @api.post("/user")
 def createUser(request, new_user: NewUser):

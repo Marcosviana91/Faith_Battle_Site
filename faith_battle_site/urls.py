@@ -22,10 +22,9 @@ from django.conf.urls.static import static
 from .api import api
 
 urlpatterns = [
-    path('', include('player_site.urls')),
+    path('', include('novidades.urls')),
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
-    path('novidades/', include('novidades.urls')),
     path("api/", api.urls),
 ]
 

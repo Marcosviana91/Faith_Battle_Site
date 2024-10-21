@@ -52,13 +52,9 @@ def perfil(request: HttpRequest):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
     logged_user = User.objects.get(username=request.user)
-    # user = authenticate(username=username, password=password)
-    # if user:
-    #     login_user(request, user)
-    #     return HttpResponseRedirect('/site')
     return render(request, "logged_area.html", {
         'perfil': 'active',
-        'logged_user': logged_user,
+        'logged_user': request.user,
     })
 
 

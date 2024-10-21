@@ -12,7 +12,7 @@ Faith Battle - Novidades
 
 {% block 'body' %}
 <div class="d-flex">
-    <main id="novidades" class="col-9">
+    <main id="novidades" class=" col-12 col-sm-9">
         <section id="destaques">
             <h2 class="pt-2">Destaques</h2>
             <!-- Inicio do Carousel -->
@@ -28,7 +28,7 @@ Faith Battle - Novidades
                     {% for artigo in destaques %}
                     <div class="carousel-item btn_link" data-link="{% url 'artigo' artigo.id %}">
                         <img src="{{ artigo.img_capa.url}}" class="d-block w-100" alt="{{ artigo.titulo }}">
-                        <div class="carousel-caption d-none d-md-block">
+                        <div class="carousel-caption">
                             <h5 class="bg-black bg-opacity-75 py-2 rounded-pill">{{ artigo.titulo }}</h5>
                             <span class="badge text-bg-info">{{artigo.tag_version}}</span>
                         </div>
@@ -52,7 +52,7 @@ Faith Battle - Novidades
             <h2 class="pt-2">Últimos artigos</h2>
             <div class="row justify-content-around gap-3 p-2">
                 {% for artigo in ultimos_artigos %}
-                <div class="btn_link card col-md-5 col-lg-3" data-link="{% url 'artigo' artigo.id %}">
+                <div id="artigo_container" class="btn_link card col-md-5 col-lg-3" data-link="{% url 'artigo' artigo.id %}">
                     <img src="{{ artigo.img_capa.url}}" alt="Sistema de movimentação" class="card-img-top">
                     <div class="card-body">
                         <h5 class="card-title">
@@ -70,7 +70,7 @@ Faith Battle - Novidades
             </div>
         </section>
     </main>
-    <aside class="col-3 d-flex flex-column ms-2 gap-1 p-2">
+    <aside class="col-3 d-none d-sm-flex flex-column ms-2 gap-1 p-2">
         <h4 class="text-center">Todos os artigos</h4>
         <input type="text" name="filtrar_artigo" id="filtrar_artigo" class="rounded-2" placeholder="Filtrar por título">
         <div class="d-flex flex-column gap-1">

@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     # My Apps
     'users',
     'games',
-    'player_site',
+    # 'player_site',
     'novidades',
     # 'api',
 ]
