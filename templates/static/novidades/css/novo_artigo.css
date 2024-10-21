@@ -1,0 +1,4 @@
+#preview_content {
+    max-height: 80vh;
+    overflow-y: scroll;
+}

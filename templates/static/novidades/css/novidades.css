@@ -1,31 +1,56 @@
-#novidades section#ultimos_artigos {
-    background-image: url('../img/background.png');
-    background-size: cover;
-    background-position: center;
-}
-
-#novidades section .card {
-    cursor: pointer;
-}
-
-#novidades section .card p {
-    height: 4.5em;
-    overflow: hidden;
-}
-
-#novidades section img {
+#novidades #destaques img {
     height: 250px;
 }
 
-#novidades article img {
-    max-height: 500px;
+#novidades #ultimos_artigos > div {
+    background-color: #0000006e;
+    background-image: url('../img/background.png');
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: soft-light ;
 }
 
-#novidades article p {
-    text-indent: 0.5in;
+#novidades #ultimos_artigos #artigo_container {
+    cursor: pointer;
+    position: relative;
+    height: 180px;
+    width: 250px;
+    border: 1px solid black;
+    border-radius: 8px;
 }
 
-aside > div {
+#novidades #ultimos_artigos #artigo_container img {
+    width: 100%;
+    height: 100%;
+}
+.overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000a9;
+    z-index: 10;
+}
+.overlay:hover {
+    background-color: #000000d3;
+}
+.overlay h5,p {
+    color: white;
+    text-align: justify;
+}
+.overlay .tags {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#novidades #ultimos_artigos #artigo_container p {
+    height: 6em;
+    overflow: hidden;
+}
+
+aside>div {
     height: 70vh;
     overflow-y: scroll;
 }

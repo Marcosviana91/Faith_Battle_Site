@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block 'head' %}
-<link rel="stylesheet" href="{% static 'novidades/novidades.css' %}">
+<link rel="stylesheet" href="{% static 'novidades/css/artigo.css' %}">
 {% endblock %}
 
 {% block 'title' %}
@@ -37,7 +37,7 @@ Faith Battle - {{artigo.titulo}}
                 </button>
                 {% endif %}
             </div>
-            <img src="{{ artigo.img_capa.url}}" alt="" class="col-12">
+            <img id="artigo_img_capa" src="{{ artigo.img_capa.url}}" alt="" class="col-12">
             <div id="django_content" hidden>{{artigo.conteudo}}</div>
             <div id="html_content"></div>
 
@@ -71,6 +71,5 @@ Faith Battle - {{artigo.titulo}}
         {% endif %}
     </aside>
 </div>
-<script src="{% static 'novidades/artigo.js' %}"></script>
-<script src="{% static 'novidades/novidades.js' %}"></script>
+<script src="{% static 'novidades/js/artigo.js' %}"></script>
 {% endblock %}

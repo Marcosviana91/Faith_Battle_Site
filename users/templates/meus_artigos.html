@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block 'head' %}
+<link rel="stylesheet" href="{% static 'users/css/meus_artigos.css' %}">
+{% endblock %}
+
+{% block 'title' %}
+Meus Artigos
+{% endblock%}
+
+{% block 'body' %}
+<section class="container mt-3">
+    <h1>Meus Artigos</h1>
+    <label class="mb-4 w-100">
+        <span>Filtar: </span>
+        <input type="text" class="form-control" placeholder="Filtar por título">
+    </label>
+    <div id="meus_artigos" class="d-flex flex-wrap justify-content-between">
+        {% for artigo in my_articles %}
+        <div class="meus_artigos btn_link p-2 col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2"
+        data-link="{% url 'artigo' artigo.id %}">
+            <h5 class="text-center">
+                {{artigo.titulo}}
+            </h5>
+            <img id="artigo_img_capa" src="{{ artigo.img_capa.url }}" alt="{{artigo.titulo}}" class="w-100">
+        </div>
+        {% endfor %}
+    </div>
+</section>
+<script src="{% static 'users/js/meus_artigos.js' %}"></script>
+{% endblock %}

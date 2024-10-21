@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block 'head' %}
+<link rel="stylesheet" href="{% static '/novidades/css/novo_artigo.css' %}">
+{% endblock %}
+
+{% block 'title' %}
+Novo Artigo
+{% endblock%}
+
+{% block 'body' %}
+<main id="novo_artigo" class="d-flex flex-row">
+    <section id="formulario_container" class="col-6">
+        {{ form }}
+
+    </section>
+    <div id="preview_container" class="col-6">
+        <p>Pré visualixar</p>
+        <!-- <img id="img_preview" src="#" style="text-indent: 0.5in;"> -->
+        <div id="preview_content" class="border border-1 border-black p-1">
+            <!-- Previsualização -->
+        </div>
+    </div>
+
+</main>
+<script src="{% static 'novidades/js/novo_artigo.js' %}"></script>
+<!-- <script src="{% static 'novidades/novidades.js' %}"></script> -->
+{% endblock %}

@@ -1,0 +1,9 @@
+.meus_artigos {
+    border-radius: 16px;
+    cursor: pointer;
+}
+
+.meus_artigos:hover {
+    scale: 1.01;
+    box-shadow: 2px 4px 16px 5px black;
+}
