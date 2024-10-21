@@ -34,10 +34,15 @@ body nav ul li {
     opacity: 0.5;
 }
 
+#btn_staff_menu.open {
+    opacity: 1;
+}
+
 @media screen and (max-width:350px) {
     #btn_staff_menu.open {
         position: fixed;
         right: 8px;
+        left: unset;
     }
 }
 
@@ -59,6 +64,12 @@ body nav ul li {
     #staff_menu {
         width: 100vw;
         left: -300px;
+    }
+
+    #btn_staff_menu {
+        position: fixed;
+        left: 8px;
+        right: unset;
     }
 }
 
