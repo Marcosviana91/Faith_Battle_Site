@@ -30,8 +30,15 @@ body nav ul li {
 #btn_staff_menu {
     position: absolute;
     right: -48px;
-    top:50%;
+    top: 50%;
     opacity: 0.5;
+}
+
+@media screen and (max-width:350px) {
+    #btn_staff_menu.open {
+        position: fixed;
+        right: 8px;
+    }
 }
 
 #btn_staff_menu:hover {
@@ -45,6 +52,14 @@ body nav ul li {
     top: 0;
     left: -300px;
     border-right: 2px solid black;
+}
+
+
+@media screen and (max-width:300px) {
+    #staff_menu {
+        width: 100vw;
+        left: -300px;
+    }
 }
 
 #staff_menu_item:hover {

@@ -36,7 +36,8 @@
                     </button>
                 </li>
                 <li class="nav-item">
-                    <button class="nav-link rounded-1 bg-dark {{novidades}} w-100 btn_link" data-link="{% url 'novidades' %}">
+                    <button class="nav-link rounded-1 bg-dark {{novidades}} w-100 btn_link"
+                        data-link="{% url 'novidades' %}">
                         <i class='bx bx-news'></i>
                         <span>Novidades</span>
                     </button>
@@ -53,7 +54,8 @@
         <nav class="nav justify-content-start d-none d-sm-block">
             <ul class="nav nav-pills d-flex flex-column flex-sm-row m-2 gap-sm-2">
                 <li class="nav-item">
-                    <button class="nav-link rounded-1 bg-dark {{player_site}} btn_link" data-link="{% url 'player_site' %}">
+                    <button class="nav-link rounded-1 bg-dark {{player_site}} btn_link"
+                        data-link="{% url 'player_site' %}">
                         <i class='bx bxs-home'></i>
                         <span>Página inicial</span>
                     </button>
@@ -67,7 +69,7 @@
                     <span class="tooltip">Novidades</span>
                 </li>
                 <li class="nav-item">
-                    <button class="nav-link rounded-1 bg-dark {{perfil}} btn_link"  data-link="{% url 'perfil' %}">
+                    <button class="nav-link rounded-1 bg-dark {{perfil}} btn_link" data-link="{% url 'perfil' %}">
                         <i class='bx bx-user'></i>
                         <span>Perfil</span>
                     </button>
@@ -79,27 +81,31 @@
 
     {% block 'body' %}
     {% endblock %}
+    <!-- Staff Menu -->
     {% if logged_user.is_staff %}
-<nav id="staff_menu" class="bg-dark bg-opacity-75 p-2 ">
-    <span id="btn_staff_menu" class="btn btn-dark">
-        <i class='bx bxs-arrow-from-left'></i>
-    </span>
-    <div class="d-flex flex-column gap-1">
-        <div id="staff_menu_item" class="w-100 rounded-2 bg-dark text-light p-2 btn_link" data-link="{% url 'minhas_imagens' %}">
-            <i class='bx bx-news'></i>
-            <span>Meus Artigos</span>
+    <nav id="staff_menu" class="bg-dark bg-opacity-75 p-2 ">
+        <span id="btn_staff_menu" class="btn btn-dark">
+            <i class='bx bxs-arrow-from-left'></i>
+        </span>
+        <div class="d-flex flex-column gap-1">
+            <div id="staff_menu_item" class="w-100 rounded-2 bg-dark text-light p-2 btn_link"
+                data-link="{% url 'minhas_imagens' %}">
+                <i class='bx bx-news'></i>
+                <span>Meus Artigos</span>
+            </div>
+            <div id="staff_menu_item" class="w-100 rounded-2 bg-dark text-light p-2 btn_link"
+                data-link="{% url 'minhas_imagens' %}">
+                <i class='bx bx-images'></i>
+                <span>Minhas Imagens</span>
+            </div>
+            <div id="staff_menu_item" class="w-100 rounded-2 bg-dark text-light p-2 btn_link"
+                data-link="{% url 'minhas_imagens' %}">
+                <i class='bx bx-joystick'></i>
+                <span>Meus Jogos</span>
+            </div>
         </div>
-        <div id="staff_menu_item" class="w-100 rounded-2 bg-dark text-light p-2 btn_link" data-link="{% url 'minhas_imagens' %}">
-            <i class='bx bx-images'></i>
-            <span>Minhas Imagens</span>
-        </div>
-        <div id="staff_menu_item" class="w-100 rounded-2 bg-dark text-light p-2 btn_link" data-link="{% url 'minhas_imagens' %}">
-            <i class='bx bx-joystick'></i>
-            <span>Meus Jogos</span>
-        </div>
-    </div>
-</nav>
-{% endif %}
+    </nav>
+    {% endif %}
     <div id="footer_placeholder">
     </div>
     <!-- Button to move to up -->
