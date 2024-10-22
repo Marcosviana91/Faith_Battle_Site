@@ -21,3 +21,9 @@ for (let carousel_item of $('#carouselPalymat .carousel-item')) {
         $('#showPlaytmatModalImage')[0].src = $('#carouselPalymat .carousel-item.active')[0].querySelector('img').src
     })
 }
+
+function setIframeSrc(btn_src) {
+    console.log(btn_src.dataset['deckName'])
+    $('#showCardFamilyModalLabel')[0].innerText = btn_src.dataset['deckName']
+    $('#verCartas')[0].src = btn_src.href
+}

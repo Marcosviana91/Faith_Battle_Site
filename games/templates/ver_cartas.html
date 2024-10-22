@@ -1,0 +1,94 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0; user-scalable=false">
+    <script src="{% static 'libs/jquery/jquery-3.7.1.min.js' %}"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static '/games/css/ver_cartas.css' %}">
+    <title>{{cardFamily}}</title>
+</head>
+
+<body>
+    <main class="p-3">
+        <div id="card_container" class="d-flex flex-row flex-wrap justify-content-around gap-1">
+
+            {% for carta in cards %}
+            <!-- bg-success-subtle bg-warning-subtle -->
+            <div
+                class="card_item border border-1 border-dark rounded-3 {% if carta.is_active %} bg-success-subtle {% else %} bg-warning-subtle {% endif %} p-2">
+                <div class="card_header d-flex flex-row justify-content-between" onclick="openCard(this)">
+                    <span>
+                        <div>Nome da carta: <strong>{{carta}}</strong></div>
+                        <div>Jogo: <strong>{{carta.game}}</strong></div>
+                    </span>
+                    {% if carta.is_active %}
+                    <span class="text-success text-end">A carta está ativa</span>
+                    {% else %}
+                    <span class="text-danger text-end">A carta está inativa</span>
+                    {% endif %}
+                </div>
+                <div class="card_body mt-2 border-top border-secondary">
+                    <div class="row">
+                        <h5>Atributos da carta:</h5>
+                        <div class="d-flex flex-row justify-content-between">
+                            {% if cardFamily.top_left_txt %}
+                            <span>
+                                <span>{{cardFamily.top_left_txt}}: </span>
+                                <span>{{carta.top_left_value}}</span>
+                            </span>
+                            {% endif %}
+
+                            {% if cardFamily.top_right_txt %}
+                            <span>
+                                <span>{{cardFamily.top_right_txt}}: </span>
+                                <span>{{carta.top_right_value}}</span>
+                            </span>
+                            {% endif %}
+
+                        </div>
+                        <div class="d-flex flex-row justify-content-between">
+
+                            {% if cardFamily.bottom_left_txt %}
+                            <span>
+                                <span>{{cardFamily.bottom_left_txt}}: </span>
+                                <span>{{carta.bottom_left_value}}</span>
+                            </span>
+                            {% endif %}
+
+                            {% if cardFamily.bottom_right_txt %}
+                            <span>
+                                <span>{{cardFamily.bottom_right_txt}}: </span>
+                                <span>{{carta.bottom_right_value}}</span>
+                            </span>
+                            {% endif %}
+                        </div>
+                        <div class="col-6 d-flex flex-column align-items-center">
+                            <span class="text-center"><strong>Imagem ampliada:</strong></span>
+                            <a href="{{ carta.card_image.url }}" target="_blank">
+                                <img class="card_img" src="{{ carta.card_image.url }}">
+                            </a>
+                        </div>
+                        <div class="col-6 d-flex flex-column align-items-center">
+                            <span class="text-center"><strong>Imagem reduzida:</strong></span>
+                            <a href="{{ carta.card_image_mini.url }}" target="_blank">
+                                <img class="card_img_mini" src="{{ carta.card_image_mini.url }}">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="{% static '/games/js/ver_cartas.js' %}"></script>
+</body>
+
+</html>

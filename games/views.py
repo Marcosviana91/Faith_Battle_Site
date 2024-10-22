@@ -2,8 +2,9 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpRequest, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.clickjacking import xframe_options_exempt
 
-from .models import Game, GameBoard, CardFamily
+from .models import Game, GameBoard, CardFamily, Card
 
 # Create your views here.
 
@@ -79,3 +80,15 @@ def novoGameBoard(request: HttpRequest):
         )
         gameboard.save()
         return HttpResponseRedirect(reverse('editar_jogo', args=[game.id]))
+
+
+# Thanks https://stackoverflow.com/questions/46080433/why-cant-django-sites-be-embedded-inside-another-htmliframe
+@xframe_options_exempt
+def verCartas(request: HttpRequest, game_family_id:int):
+    cardFamily = CardFamily.objects.get(id=game_family_id)
+    cards = Card.objects.filter(card_family=cardFamily)
+    print(cards)
+    return render(request, "ver_cartas.html", {
+        'cardFamily':cardFamily,
+        'cards': cards,
+    })

@@ -26,10 +26,12 @@ Editar - {{game.title}}
     <section id="playmats" class="col-12 col-md-6">
         <span class="d-flex align-items-baseline justify-content-between mb-2">
             <h3>Playmats</h3>
-            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addPlaytmatModal">adicionar
+            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
+                data-bs-target="#addPlaytmatModal">adicionar
                 Playmat</button>
         </span>
 
+        {% if gameboards %}
         <!-- Carousel -->
         <div id="carouselPalymat" class="carousel slide">
             <div class="carousel-inner">
@@ -53,6 +55,7 @@ Editar - {{game.title}}
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
+        {% endif %}
 
     </section>
     <section id="baralhos" class="col-12 col-md-6">
@@ -62,6 +65,9 @@ Editar - {{game.title}}
                 adicionar tipo de baralho
             </button>
         </span>
+
+        <!-- Accordion -->
+        {% if cardfamily %}
         <div class="accordion" id="accordionDecks">
             {% for deck in cardfamily %}
             <div class="accordion-item">
@@ -75,14 +81,41 @@ Editar - {{game.title}}
                     <div class="accordion-body row">
                         <img class="col-3" src="{{deck.card_back_image.url}}">
                         <strong class="col-9">{{deck.short_description}}</strong>
-                        <button type="button" class="btn btn-sm btn-primary col-3 mt-2">Ver cartas</button>
+                        <a href="{% url 'ver_cartas' deck.id %}" class="btn btn-sm btn-primary col-3 mt-2"
+                            target="verCartas" data-bs-toggle="modal" data-bs-target="#showCardFamilyModal" data-deck-name="{{deck}}"
+                            onclick="setIframeSrc(this)">Ver cartas</a>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
+        {% endif %}
+
     </section>
+    <!-- <div >
+        <iframe id="verCartas" name="verCartas" src="#" frameborder="0" sandbox="allow-same-origin;allow-forms"></iframe>
+    </div> -->
 </main>
+<!-- Modal showCardFamilyModal -->
+<div class="modal fade" id="showCardFamilyModal" tabindex="-1" aria-labelledby="showCardFamilyModalLabel"
+    aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+        <div class="modal-content bg-light">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="showCardFamilyModalLabel">asdasd</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div style="height: 500px;">
+                    <iframe id="verCartas" name="verCartas" src="#" frameborder="0" height="100%" width="100%"></iframe>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Modal showPlaytmatModal -->
 <div class="modal fade" id="showPlaytmatModal" tabindex="-1" aria-labelledby="showPlaytmatModalLabel"
     aria-hidden="true">
@@ -94,13 +127,12 @@ Editar - {{game.title}}
             </div>
             <div class="modal-body">
                 <div>
-                    <img id="showPlaytmatModalImage" class="w-100"
-                        src="http://192.168.1.32:3111/media/game_boards/faith_battle_alpha_gelo.png">
+                    <img id="showPlaytmatModalImage" class="w-100" src="#">
                     <p class="text-center text-bg-light"></p>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
             </div>
         </div>
     </div>
