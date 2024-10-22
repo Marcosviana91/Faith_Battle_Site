@@ -20,10 +20,21 @@
 #login #container {
     padding: 8px;
     background-color: #242424d3;
+    color: #687076;
+}
+
+#login #container input {
+    background-color: #27419B;
 }
 
 #game_logo {
     margin: 32px;
     width: 280px;
     height: 200px;
+}
+
+#login button {
+    font-size: 14px;
+    font-weight: 700;
+    color: black;
 }

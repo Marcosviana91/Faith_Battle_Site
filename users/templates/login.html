@@ -9,23 +9,29 @@
 {% block 'title' %}Login{% endblock %}
 
 {% block 'body' %}
-<section id="login" class="d-flex flex-column align-items-center">
-    <img id="login_bg" src="{% static 'general/img/login_bg_01.png' %}" data-src="{% static 'general/img/login_bg_01.png' %};{% static 'general/img/login_bg_02.png' %}">
-    <img id="game_logo" src="{% static 'general/img/Faith_Batlle.png' %}" alt="Faith Battle logo">
-    <form action="{% url 'login' %}" method="post"> {% csrf_token %}
-        <div id="container" class="d-flex flex-column border border-black">
-            <label>
-                <p>Usuário:</p>
-                <input type="text" placeholder="nome de usuário" name="username">
-            </label>
-            <label>
-                <p>Senha:</p>
-                <input type="password" placeholder="senha" name="password">
-            </label>
-        </div>
-        <button type="submit" class="btn btn-primary">Logar</button>
-        <button type="button" class="btn btn-success">Criar Conta</button>
-    </form>
-</section>
+<main class="w-100 d-flex justify-content-center">
+    <section id="login" class="d-flex flex-column align-items-center">
+        <img id="login_bg" src="{% static 'general/img/login_bg_01.png' %}"
+            data-src="{% static 'general/img/login_bg_01.png' %};{% static 'general/img/login_bg_02.png' %}">
+        <img id="game_logo" src="{% static 'general/img/Faith_Batlle.png' %}" alt="Faith Battle logo">
+        <form class="" action="{% url 'login' %}" method="post"> {% csrf_token %}
+            <div id="container" class="col-12 d-flex flex-column border border-black rounded-2">
+                <label>
+                    <div>Usuário:</div>
+                    <input type="text" placeholder="nome de usuário" name="username" required>
+                </label>
+                <label>
+                    <div>Senha:</div>
+                    <input type="password" placeholder="senha" name="password" required>
+                </label>
+            </div>
+            <div class="d-flex justify-content-around pt-3">
+                <button type="submit" class="col-4 btn btn-primary border-white rounded-3">Logar</button>
+                <button type="button" class="col-6 btn btn-success border-white rounded-3">Criar Conta</button>
+            </div>
+        </form>
+    </section>
+
+</main>
 <script src="{% static 'users/js/login.js' %}"></script>
 {% endblock %}
