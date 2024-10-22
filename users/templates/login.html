@@ -10,9 +10,10 @@
 
 {% block 'body' %}
 <section id="login" class="d-flex flex-column align-items-center">
+    <img id="login_bg" src="{% static 'general/img/login_bg_01.png' %}" data-src="{% static 'general/img/login_bg_01.png' %};{% static 'general/img/login_bg_02.png' %}">
     <img id="game_logo" src="{% static 'general/img/Faith_Batlle.png' %}" alt="Faith Battle logo">
     <form action="{% url 'login' %}" method="post"> {% csrf_token %}
-        <div id="container" class="d-flex flex-column">
+        <div id="container" class="d-flex flex-column border border-black">
             <label>
                 <p>Usuário:</p>
                 <input type="text" placeholder="nome de usuário" name="username">
@@ -25,9 +26,6 @@
         <button type="submit" class="btn btn-primary">Logar</button>
         <button type="button" class="btn btn-success">Criar Conta</button>
     </form>
-    <div>
-        Não tem conta? <a href="{% url 'cadastro' %}">Cadastre-se</a>.
-    </div>
 </section>
 <script src="{% static 'users/js/login.js' %}"></script>
 {% endblock %}
