@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block 'head' %}
+<link rel="stylesheet" href="{% static 'users/css/meus_jogos.css' %}">
+{% endblock %}
+
+{% block 'title' %}
+Meus Jogos
+{% endblock%}
+
+{% block 'body' %}
+<section class="container mt-3">
+    <h1>Meus Jogos</h1>
+    <label class="mb-4 w-100">
+        <span>Filtar: </span>
+        <input type="text" class="form-control" placeholder="Filtar por título">
+    </label>
+    <div id="meus_jogos" class="flex-wrap justify-content-between row">
+        {% for jogo in meus_jogos %}
+        <div class="game_container btn_link col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-3" data-link="{% url 'editar_jogo' jogo.id %}">
+            <h5> {{jogo}} </h5>
+            <img class="w-100" src="{{jogo.image.url}}">
+        </div>
+        {% endfor %}
+    </div>
+</section>
+<!-- btn criar jogo -->
+<div id="btn_add_game" class="btn_link" data-link="{% url 'novo_jogo' %}">
+    <i class='bx bx-plus-circle'></i>
+</div>
+<script src="{% static 'users/js/meus_jogos.js' %}"></script>
+{% endblock %}

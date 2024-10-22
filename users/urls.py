@@ -9,4 +9,5 @@ urlpatterns = [
     path('logout/', views.logout, name="logout"),
     path('minhas_imagens/', views.getImages, name="minhas_imagens"),
     path('meus_artigos/', views.getArticles, name="meus_artigos"),
+    path('meus_jogos/', views.getGames, name="meus_jogos"),
 ]

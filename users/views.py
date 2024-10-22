@@ -10,9 +10,10 @@ from django.contrib.auth.decorators import login_required
 from faith_battle_site.settings import MEDIA_ROOT
 from .forms import UploadFileForm
 from novidades.models import Artigo
+from games.models import Game
 
 
-MAX_DIR_SIZE_IM_MB = 2
+MAX_DIR_SIZE_IM_MB = 200
 
 # Create your views here.
 
@@ -122,5 +123,15 @@ def getArticles(request: HttpRequest):
     print(meus_artigos)
     return render(request, "meus_artigos.html", {
         'my_articles': meus_artigos,
+        'logged_user': request.user,
+    })
+
+
+@login_required(login_url="/users/login")
+def getGames(request: HttpRequest):
+    meus_jogos = Game.objects.filter(created_by=request.user)
+    print(meus_jogos)
+    return render(request, "meus_jogos.html", {
+        'meus_jogos': meus_jogos,
         'logged_user': request.user,
     })

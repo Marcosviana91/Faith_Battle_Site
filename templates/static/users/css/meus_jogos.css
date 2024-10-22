@@ -1,0 +1,24 @@
+#meus_jogos .game_container {
+    cursor: pointer;
+}
+
+#btn_add_game {
+    width: 64px;
+    height: 64px;
+
+    position: fixed;
+    bottom: 56px;
+    right: 16px;
+    background-color: green;
+    border-radius: 50%;
+    opacity: .5;
+    cursor: pointer;
+}
+#btn_add_game:hover {
+    opacity: 1;
+    scale: 1.1;
+}
+
+#btn_add_game i {
+    font-size: 64px;
+}

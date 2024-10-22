@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block 'title' %}
+Novo Jogo
+{% endblock %}
+
+{% block 'body' %}
+<main>
+    <form action="{% url 'novo_jogo' %}" method="post" enctype="multipart/form-data">
+        {%csrf_token%}
+        <div>
+            <label for="id_title">Título</label>
+            <input type="text" name="title" id="id_title">
+        </div>
+        <div>
+            <label for="id_description">Descrição</label>
+            <input type="text" name="description" id="id_description">
+        </div>
+        <div>
+            <label for="id_image">Imagem de capa</label>
+            <input type="file" name="image" id="id_image" accept="image/png">
+        </div>
+        <button type="submit">Salvar</button>
+    </form>
+</main>
+{% endblock %}

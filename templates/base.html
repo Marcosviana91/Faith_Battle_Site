@@ -31,8 +31,15 @@
                 <li class="nav-item w-100">
                     <button class="nav-link rounded-1 bg-dark {{player_site}} w-100 btn_link"
                         data-link="{% url 'player_site' %}">
-                        <i class='bx bxs-home'></i>
+                        <i class='bx bx-home-alt-2'></i>
                         <span>Página inicial</span>
+                    </button>
+                </li>
+                <li class="nav-item w-100">
+                    <button class="nav-link rounded-1 bg-dark {{jogos}} w-100 btn_link"
+                        data-link="{% url 'player_site' %}">
+                        <i class='bx bx-joystick-alt'></i>
+                        <span>Jogos</span>
                     </button>
                 </li>
                 <li class="nav-item">
@@ -56,24 +63,28 @@
                 <li class="nav-item">
                     <button class="nav-link rounded-1 bg-dark {{player_site}} btn_link"
                         data-link="{% url 'player_site' %}">
-                        <i class='bx bxs-home'></i>
+                        <i class='bx bx-home-alt-2'></i>
                         <span>Página inicial</span>
                     </button>
-                    <span class="tooltip">Página inicial</span>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link rounded-1 bg-dark {{jogos}} btn_link"
+                        data-link="{% url 'player_site' %}">
+                        <i class='bx bx-joystick-alt'></i>
+                        <span>Jogos</span>
+                    </button>
                 </li>
                 <li class="nav-item">
                     <button class="nav-link rounded-1 bg-dark {{novidades}} btn_link" data-link="{% url 'novidades' %}">
                         <i class='bx bx-news'></i>
                         <span>Novidades</span>
                     </button>
-                    <span class="tooltip">Novidades</span>
                 </li>
                 <li class="nav-item">
                     <button class="nav-link rounded-1 bg-dark {{perfil}} btn_link" data-link="{% url 'perfil' %}">
                         <i class='bx bx-user'></i>
                         <span>Perfil</span>
                     </button>
-                    <span class="tooltip">Perfil</span>
                 </li>
             </ul>
         </nav>
@@ -99,7 +110,7 @@
                 <span>Minhas Imagens</span>
             </div>
             <div id="staff_menu_item" class="w-100 rounded-2 bg-dark text-light p-2 btn_link"
-                data-link="{% url 'minhas_imagens' %}">
+                data-link="{% url 'meus_jogos' %}">
                 <i class='bx bx-joystick'></i>
                 <span>Meus Jogos</span>
             </div>
@@ -108,6 +119,7 @@
     {% endif %}
     <div id="footer_placeholder">
     </div>
+    <!-- TODO: adicionar toast de confirmação ou erro -->
     <!-- Button to move to up -->
     <div id="btn_go_up">
         <i class='bx bxs-chevron-up-circle'></i>

@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block 'title' %}
+Editar - {{game.title}}
+{% endblock %}
+
+{% block 'head'%}
+<link rel="stylesheet" href="{% static '/games/css/editar_jogo.css' %}">
+<script src="{% static '/libs/jquery/jquery-image-upload-resizer.js' %}"></script>
+{% endblock %}
+
+{% block 'body' %}
+<main>
+    <section id="dados_jogo" class="col-12 col-md-6 border-bottom pb-3 mb-3 border-secondary">
+        <span class="d-flex align-items-baseline justify-content-between">
+            <h3>{{game.title}}</h3>
+            <p>adicionado por <a href="https://marcosvianadev.com.br/" target="_blank">{{game.created_by}}</a> </p>
+        </span>
+        <div class="row">
+            <img src="{{game.image.url}}" class="col-6">
+            <p class="col-6">{{ game.description}}</p>
+        </div>
+    </section>
+    <section id="playmats" class="col-12 col-md-6">
+        <span class="d-flex align-items-baseline justify-content-between mb-2">
+            <h3>Playmats</h3>
+            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addPlaytmatModal">adicionar
+                Playmat</button>
+        </span>
+
+        <!-- Carousel -->
+        <div id="carouselPalymat" class="carousel slide">
+            <div class="carousel-inner">
+                {% for playmat in gameboards %}
+                <div class="carousel-item">
+                    <div class="playmat_image d-flex flex-column w-100 align-items-center" data-bs-toggle="modal"
+                        data-bs-target="#showPlaytmatModal">
+                        <img class="playmat_image" src="{{ playmat.image.url}}" alt="" srcset="">
+                        <p class="text-center text-bg-light w-100">{{ playmat }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselPalymat" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselPalymat" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+    </section>
+    <section id="baralhos" class="col-12 col-md-6">
+        <span class="d-flex align-items-baseline justify-content-between mb-2">
+            <h3>Baralhos</h3>
+            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addDeckModal">
+                adicionar tipo de baralho
+            </button>
+        </span>
+        <div class="accordion" id="accordionDecks">
+            {% for deck in cardfamily %}
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse{{deck}}" aria-expanded="true" aria-controls="collapse{{deck}}">
+                        {{deck}}
+                    </button>
+                </h2>
+                <div id="collapse{{deck}}" class="accordion-collapse collapse" data-bs-parent="#accordionDecks">
+                    <div class="accordion-body row">
+                        <img class="col-3" src="{{deck.card_back_image.url}}">
+                        <strong class="col-9">{{deck.short_description}}</strong>
+                        <button type="button" class="btn btn-sm btn-primary col-3 mt-2">Ver cartas</button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</main>
+<!-- Modal showPlaytmatModal -->
+<div class="modal fade" id="showPlaytmatModal" tabindex="-1" aria-labelledby="showPlaytmatModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-light">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="showPlaytmatModalLabel"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <img id="showPlaytmatModalImage" class="w-100"
+                        src="http://192.168.1.32:3111/media/game_boards/faith_battle_alpha_gelo.png">
+                    <p class="text-center text-bg-light"></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal addPlaytmatModal -->
+<div class="modal fade" id="addPlaytmatModal" tabindex="-1" aria-labelledby="addPlaytmatModalLabel" aria-hidden="true"
+    data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-light">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="addPlaytmatModalLabel">Novo Playmat</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="form" action="{% url 'novo_playmat' %}" method="post" enctype="multipart/form-data">
+                    {%csrf_token%}
+                    <input type="hidden" name="game" value="{{game.id}}">
+                    <label class="d-flex flex-column">
+                        Nome do Playmat:
+                        <input class="form-control border border-1 border-primary" type="text" name="name"
+                            id="playmat_name" maxlength="25" required>
+                    </label>
+                    <label class="d-flex flex-column">
+                        Playmat:
+                        <input class="form-control border border-1 border-primary" type="file" accept="image/*"
+                            name="image" id="playmat_image" required>
+                    </label>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Adicionar Playmat</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static '/games/js/editar_jogo.js' %}"></script>
+{% endblock %}
