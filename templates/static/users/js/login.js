@@ -33,7 +33,7 @@ function showAvatarForm() {
     avatar_container.show()
 }
 
-for (var avatar of $('.avatar_selector')){
+for (var avatar of $('.avatar_selector')) {
     avatar.firstElementChild.innerHTML = avatar.firstElementChild.innerHTML.split('.')[0]
 }
 
@@ -43,3 +43,10 @@ $('.avatar_selector').on("click", function (e) {
     avatar_hidden_input.lastElementChild.src = e.currentTarget.dataset['src']
     showCreateForm()
 })
+
+// Check tab
+const search_params = new URLSearchParams(window.location.search)
+const form_tab = search_params.get("form_tab")
+if (form_tab === 'cadastrar') {
+    showCreateForm()
+}

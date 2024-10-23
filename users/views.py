@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 
 from faith_battle_site.settings import MEDIA_ROOT, STATICFILES_DIRS
 from .forms import UploadFileForm
+from .models import Jogador
 from novidades.models import Artigo
 from games.models import Game
 
@@ -20,18 +21,25 @@ MAX_DIR_SIZE_IM_MB = 200
 
 def cadastro(request: HttpRequest):
     if request.method == "GET":
-        return render(request, "cadastro.html")
-    username = request.POST.get("username")
+        return HttpResponseRedirect(reverse('login')+'?form_tab=cadastrar')
+        # return render(request, "cadastro.html")
+    if request.method == "POST":
+        form = request.POST
+        username = form.get("username")
 
-    user = User.objects.filter(username=username).first()
-    if user:
-        return HttpResponse("Ja cadastrado")
-    email = request.POST.get("email")
-    password = request.POST.get("password")
-    user = User.objects.create_user(username, email, password)
-    # user.is_active = False
-    user.save()
-    return HttpResponse(f'{username} {email} {password}')
+        user = User.objects.filter(username=username).first()
+        if user:
+            return HttpResponse("Já tem um username cadastrado")
+        password = form.get("password")
+        first_name = form.get("first_name")
+        user = User.objects.create_user(username=username, password=password, first_name=first_name)
+        user.save()
+        
+        avatar = form.get("avatar")
+        novo_jogador = Jogador(user=user, avatar=avatar)
+        novo_jogador.save()
+        return HttpResponseRedirect(reverse('login'))
+    return HttpResponse(f"Metodo {request.method} não implementado....")
 
 
 def login(request: HttpRequest):
@@ -39,7 +47,7 @@ def login(request: HttpRequest):
     all_avatar = os.listdir(AVATAR_DIR)
     if request.method == 'GET':
         return render(request, "login.html", {'all_avatar': all_avatar})
-    
+
     username = request.POST.get("username")
     password = request.POST.get("password")
 
@@ -54,22 +62,18 @@ def logout(request: HttpRequest):
     logout_user(request)
     return HttpResponseRedirect(reverse('login'))
 
+
 # Verificação de usuário manual
-
-
 def perfil(request: HttpRequest):
-    print(request.user.is_authenticated)
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
-    logged_user = User.objects.get(username=request.user)
     return render(request, "logged_area.html", {
         'perfil': 'active',
         'logged_user': request.user,
     })
 
+
 # Decorador de verificação de usuário
-
-
 @login_required(login_url="/users/login")
 def getImages(request: HttpRequest):
     user_id = str(request.user.id)
