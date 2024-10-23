@@ -1,15 +1,15 @@
 // Change background
 const login_bg_list = $('#login_bg')[0].dataset['src'].split(';')
 var current_bg_index = 0
-setInterval(function() {
-    if (current_bg_index < login_bg_list.length-1) {
-        current_bg_index +=1
+setInterval(function () {
+    if (current_bg_index < login_bg_list.length - 1) {
+        current_bg_index += 1
     } else {
         current_bg_index = 0
     }
     $('#login_bg')[0].src = login_bg_list[current_bg_index]
 }
-,10000)
+    , 10000)
 
 const form_login = $('#form_login')
 const form_create_user = $('#form_create_user')
@@ -33,7 +33,13 @@ function showAvatarForm() {
     avatar_container.show()
 }
 
-$('.avatar_selector').on("click", function(e) {
-    console.log(e.currentTarget.dataset)
+for (var avatar of $('.avatar_selector')){
+    avatar.firstElementChild.innerHTML = avatar.firstElementChild.innerHTML.split('.')[0]
+}
+
+const avatar_hidden_input = $('#avatar_hidden')[0]
+$('.avatar_selector').on("click", function (e) {
+    avatar_hidden_input.firstElementChild.value = e.currentTarget.dataset['avatar_id']
+    avatar_hidden_input.lastElementChild.src = e.currentTarget.dataset['src']
     showCreateForm()
 })

@@ -47,12 +47,11 @@
                     <div>Nome Completo:</div>
                     <input type="text" placeholder="Seu nome" name="full_name" required>
                 </label>
-                <label class="d-flex justify-content-between align-items-center mt-2">
-                    <input type="hidden">
+                <label id="avatar_hidden" class="d-flex justify-content-between align-items-center mt-2">
+                    <input type="hidden" name="avatar" value="1">
                     <span>Avatar:</span>
-                    <img class="avatar_image_mini" src="{% static '/general/img/Avatar/1.png' %}"
+                    <img class="avatar_image_mini" src="{% static '/general/img/Avatar/Abraão.png' %}"
                         onclick="showAvatarForm()">
-
                 </label>
             </div>
             <div class="d-flex justify-content-around pt-3">
@@ -64,56 +63,13 @@
         <!-- Avatar Selector -->
         <div id="avatar_container" class="col-6 border border-black rounded-2 ">
             <div class="w-100 d-flex flex-column gap-1">
-                <div data-avatar="1"
+                {% for avatar in all_avatar %}
+                <div data-avatar_name="{{avatar}}" data-src="/static/general/img/Avatar/{{avatar}}"
                     class="avatar_selector d-flex flex-row justify-content-between align-items-center bg-dark border border-1 border-black rounded-1 p-1">
-                    <span>Abraão</span>
-                    <img class="avatar_image_micro" src="{% static '/general/img/Avatar/1.png' %}">
+                    <span>{{avatar}}</span>
+                    <img class="avatar_image_micro" src="/static/general/img/Avatar/{{avatar}}">
                 </div>
-                <div
-                    class="avatar_selector d-flex flex-row justify-content-between align-items-center bg-dark border border-1 border-black rounded-1 p-1">
-                    <span>Adão</span>
-                    <img class="avatar_image_micro" src="{% static '/general/img/Avatar/2.png' %}">
-                </div>
-                <div
-                    class="avatar_selector d-flex flex-row justify-content-between align-items-center bg-dark border border-1 border-black rounded-1 p-1">
-                    <span>Davi</span>
-                    <img class="avatar_image_micro" src="{% static '/general/img/Avatar/3.png' %}">
-                </div>
-                <div
-                    class="avatar_selector d-flex flex-row justify-content-between align-items-center bg-dark border border-1 border-black rounded-1 p-1">
-                    <span>Ester</span>
-                    <img class="avatar_image_micro" src="{% static '/general/img/Avatar/4.png' %}">
-                </div>
-                <div
-                    class="avatar_selector d-flex flex-row justify-content-between align-items-center bg-dark border border-1 border-black rounded-1 p-1">
-                    <span>Eva</span>
-                    <img class="avatar_image_micro" src="{% static '/general/img/Avatar/5.png' %}">
-                </div>
-                <div
-                    class="avatar_selector d-flex flex-row justify-content-between align-items-center bg-dark border border-1 border-black rounded-1 p-1">
-                    <span>Josué</span>
-                    <img class="avatar_image_micro" src="{% static '/general/img/Avatar/6.png' %}">
-                </div>
-                <div
-                    class="avatar_selector d-flex flex-row justify-content-between align-items-center bg-dark border border-1 border-black rounded-1 p-1">
-                    <span>Maria</span>
-                    <img class="avatar_image_micro" src="{% static '/general/img/Avatar/7.png' %}">
-                </div>
-                <div
-                    class="avatar_selector d-flex flex-row justify-content-between align-items-center bg-dark border border-1 border-black rounded-1 p-1">
-                    <span>Moisés</span>
-                    <img class="avatar_image_micro" src="{% static '/general/img/Avatar/8.png' %}">
-                </div>
-                <div
-                    class="avatar_selector d-flex flex-row justify-content-between align-items-center bg-dark border border-1 border-black rounded-1 p-1">
-                    <span>Salomão</span>
-                    <img class="avatar_image_micro" src="{% static '/general/img/Avatar/9.png' %}">
-                </div>
-                <div
-                    class="avatar_selector d-flex flex-row justify-content-between align-items-center bg-dark border border-1 border-black rounded-1 p-1">
-                    <span>Sansão</span>
-                    <img class="avatar_image_micro" src="{% static '/general/img/Avatar/10.png' %}">
-                </div>
+                {% endfor %}
             </div>
         </div>
     </section>

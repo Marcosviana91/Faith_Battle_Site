@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login as login_user, logout as log
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-from faith_battle_site.settings import MEDIA_ROOT
+from faith_battle_site.settings import MEDIA_ROOT, STATICFILES_DIRS
 from .forms import UploadFileForm
 from novidades.models import Artigo
 from games.models import Game
@@ -35,8 +35,11 @@ def cadastro(request: HttpRequest):
 
 
 def login(request: HttpRequest):
+    AVATAR_DIR = os.path.join(STATICFILES_DIRS[0], "general", "img", "Avatar")
+    all_avatar = os.listdir(AVATAR_DIR)
     if request.method == 'GET':
-        return render(request, "login.html")
+        return render(request, "login.html", {'all_avatar': all_avatar})
+    
     username = request.POST.get("username")
     password = request.POST.get("password")
 
@@ -82,6 +85,7 @@ def getImages(request: HttpRequest):
     user_media_url = os.path.join(os.path.basename(
         MEDIA_ROOT), "users_images", user_id)
 
+    # TODO: a imagem recém enviada não está aparecendo
     user_dir_size = 0
     all_images = os.listdir(user_media_dir)
     for img in all_images:
