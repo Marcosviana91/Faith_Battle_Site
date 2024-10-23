@@ -1,7 +1,6 @@
-import datetime
-
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
 
 
 # Create your models here.
@@ -12,7 +11,7 @@ class Artigo(models.Model):
     destaque = models.BooleanField(default=False)
     titulo = models.CharField(max_length=255)
     img_capa = models.ImageField(upload_to=f'artigos/', null=True, blank=True)
-    data_hora_publicacao = models.DateTimeField(default=datetime.datetime.now(datetime.timezone.utc), null=True, blank=True)
+    data_hora_publicacao = models.DateTimeField(default=timezone.now, null=True, blank=True)
     autor = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     conteudo = models.TextField()
     tag_version = models.CharField(max_length=20)
@@ -35,7 +34,7 @@ class Enquetes(models.Model):
     titulo = models.CharField(max_length=255)
     descricao = models.TextField()
     autor = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    data_hora_publicacao = models.DateTimeField(null=True, blank=True)
+    data_hora_publicacao = models.DateTimeField(default=timezone.now, null=True, blank=True)
     max_dias = models.IntegerField(null=True, blank=True, default=7)
     min_votos_por_opcao = models.IntegerField(
         null=True, blank=True, default=50)
