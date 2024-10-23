@@ -7,7 +7,7 @@
     
     /* 88px is header sum with footer_placeholder */
     height: calc( 100vh - 88px);
-    max-width: 400px;
+    width: 400px;
 }
 #login_bg {
     position: absolute;
@@ -33,7 +33,7 @@
 
 #game_logo {
     margin: 32px;
-    width: 280px;
+    max-width: 280px;
     height: 200px;
 }
 
