@@ -1,4 +1,3 @@
-#preview_content {
-    max-height: 80vh;
-    overflow-y: scroll;
+form {
+    max-width: 672px;
 }

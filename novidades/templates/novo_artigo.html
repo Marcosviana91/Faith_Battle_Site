@@ -16,8 +16,8 @@ Novo Artigo
 
 {% block 'body' %}
 <main id="novo_artigo" class="d-flex flex-row">
-    <section id="formulario_container" class="container">
-        <form class="d-flex flex-wrap" action="" method="post" enctype="multipart/form-data"> {% csrf_token %}
+    <section id="formulario_container" class="container d-flex justify-content-center">
+        <form class="d-flex flex-wrap" action="" method="POST" enctype="multipart/form-data"> {% csrf_token %}
             <div class="col-12 col-sm-8">
                 <label class="w-100">
                     <div class="form-text">Título:</div>
@@ -25,15 +25,15 @@ Novo Artigo
                         placeholder="ex: Título do artigo - Nome do Jogo" required>
                 </label>
             </div>
-            <div class="col-12 col-sm-4 ps-sm-2">
+            <div class="col-4 col-sm-4 pe-2 pe-sm-0 ps-sm-2">
                 <label class="w-100">
                     <div class="form-text">Tag:</div>
                     <input class="form-control" type="text" name="tag_version" id="tag_version"
                         placeholder="ex: nome-do-jogo_1.2.3" required>
                 </label>
             </div>
-            <div class="col-12 col-sm-8">
-                <label>
+            <div class="col-8 col-sm-12">
+                <label class="w-100">
                     <div class="form-text">Capa:</div>
                     <input class="form-control" type="file" name="img_capa" id="img_capa" required>
                 </label>

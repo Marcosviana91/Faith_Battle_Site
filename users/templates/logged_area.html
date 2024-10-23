@@ -9,7 +9,7 @@
 {% block 'title' %}Faith Battle - Perfil{% endblock %}
 
 {% block 'body' %}
-<div id="logged_header" class="d-flex justify-content-between p-1 bg-dark-subtle">
+<div id="logged_header" class="d-flex justify-content-between p-1 mb-3 bg-dark-subtle">
     <p>Olá {{logged_user.username}}!</p>
     <div>
         <button class="btn btn-sm h-100 btn-primary p-0 px-1" data-bs-toggle="modal"
@@ -26,7 +26,7 @@
     </div>
 </div>
 
-<main class="">
+<main class="col-12">
     <section id="meus_dados" class="d-flex flex-wrap">
         <div class="col-4">
             <img class="w-100" src="/static/general/img/Avatar/{{player_data.avatar}}" alt="{{player_data.avatar}}"

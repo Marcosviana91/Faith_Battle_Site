@@ -3,6 +3,10 @@
     height: 32px;
 }
 
+#meus_dados {
+    max-width: 450px;
+}
+
 .pointer {
     cursor: pointer;
 }
