@@ -39,7 +39,7 @@ for (var avatar of $('.avatar_selector')){
 
 const avatar_hidden_input = $('#avatar_hidden')[0]
 $('.avatar_selector').on("click", function (e) {
-    avatar_hidden_input.firstElementChild.value = e.currentTarget.dataset['avatar_id']
+    avatar_hidden_input.firstElementChild.value = e.currentTarget.dataset['avatar_name']
     avatar_hidden_input.lastElementChild.src = e.currentTarget.dataset['src']
     showCreateForm()
 })
