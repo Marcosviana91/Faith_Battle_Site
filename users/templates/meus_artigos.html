@@ -12,7 +12,11 @@ Meus Artigos
 
 {% block 'body' %}
 <section class="container mt-3">
-    <h1>Meus Artigos</h1>
+    <div class="d-flex justify-content-between">
+        <h1>Meus Artigos</h1>
+        <button class="btn_link btn btn-sm btn-primary" data-link="{% url 'novo_artigo' %}">Novo artigo</button>
+
+    </div>
     <label class="mb-4 w-100">
         <span>Filtar: </span>
         <input type="text" class="form-control" placeholder="Filtar por título">
@@ -20,7 +24,7 @@ Meus Artigos
     <div id="meus_artigos" class="d-flex flex-wrap justify-content-between">
         {% for artigo in my_articles %}
         <div class="meus_artigos btn_link p-2 col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2"
-        data-link="{% url 'artigo' artigo.id %}">
+            data-link="{% url 'artigo' artigo.id %}">
             <h5 class="text-center">
                 {{artigo.titulo}}
             </h5>

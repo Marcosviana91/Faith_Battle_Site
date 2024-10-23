@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -10,7 +12,7 @@ class Artigo(models.Model):
     destaque = models.BooleanField(default=False)
     titulo = models.CharField(max_length=255)
     img_capa = models.ImageField(upload_to=f'artigos/', null=True, blank=True)
-    data_hora_publicacao = models.DateTimeField(null=True, blank=True)
+    data_hora_publicacao = models.DateTimeField(default=datetime.datetime.now(datetime.timezone.utc), null=True, blank=True)
     autor = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     conteudo = models.TextField()
     tag_version = models.CharField(max_length=20)
@@ -19,10 +21,12 @@ class Artigo(models.Model):
         return self.titulo
 
     def save(self, *args, **kwargs):
+        self.titulo = self.titulo.replace("/", "-")
+        self.tag_version = self.tag_version.replace("/", "-")
         folder = f'{self.data_hora_publicacao.year}/{
             self.data_hora_publicacao.month}/{self.data_hora_publicacao.day}/'
-        img_capa_extension = self.img_capa.name[-3:]
-        self.img_capa.name = f'{folder}/img_capa.{img_capa_extension}'
+        img_capa_extension = self.img_capa.name.split(".")[-1]
+        self.img_capa.name = f'{folder}/img_capa_{self.titulo.lower().replace(' ', '-')}_{self.tag_version}_{img_capa_extension}'
         super().save(*args, **kwargs)
 
 

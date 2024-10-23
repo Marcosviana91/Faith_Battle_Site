@@ -1,12 +1,10 @@
-
-# from urllib.parse import quote
-
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponseRedirect
+from django.urls import reverse
 
 from .models import Artigo
-from .forms import FormEnquetes, FormArtigos
+from .forms import FormEnquetes
 
 # Create your views here.
 
@@ -32,28 +30,34 @@ def novidades(request: HttpRequest):
 @login_required(login_url="/users/login")
 def novo_artigo(request: HttpRequest):
     if request.method == "GET":
-        form = FormArtigos()
         return render(request, "novo_artigo.html", {
             'novidades': 'active',
             'logged_user': request.user,
-            'form': form
         })
     elif request.method == "POST":
-        form = FormEnquetes(request.POST)
-        if form.is_valid():
-            form
-            form.save()
-            return render(request, "novo_artigo.html", {
-                'novidades': 'active',
-                'logged_user': request.user,
-                'form': form
-            })
-        else:
-            return render(request, "novo_artigo.html", {
-                'novidades': 'active',
-                'logged_user': request.user,
-                'form': form
-            })
+        form = request.POST
+        img_capa = request.FILES['img_capa']
+        novo_artigo =Artigo(
+            destaque=False,
+            titulo = form['titulo'],
+            img_capa = img_capa,
+            autor = request.user,
+            conteudo = form['conteudo'],
+            tag_version = form['tag_version']
+        )
+
+        novo_artigo.save()
+        # if form.is_valid():
+        #     print('SALVAR')
+        #     form.save()
+        return HttpResponseRedirect(reverse('artigo', args=[novo_artigo.id]))
+        # else:
+        #     print('NÃO SALVAR')
+        #     return render(request, "novo_artigo.html", {
+        #         'novidades': 'active',
+        #         'logged_user': request.user,
+        #         'form': form
+        #     })
 
 
 def artigo(request: HttpRequest, id: int):

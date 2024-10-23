@@ -38,8 +38,13 @@ $('#id_img_capa').on('change', function () {
     readURL(this)
 });
 
-$('#novo_conteudo').on('input', function (e) {
-    content = e.target.value
+
+$('#btn_salvar').on('click', function () {
+    var summernoteStr = $('#summernote').summernote('code');
+    $('#novo_conteudo')[0].innerHTML = summernoteStr
+    content = summernoteStr
     preview_content.innerHTML = renderContent()
-});
+})
+
+
 

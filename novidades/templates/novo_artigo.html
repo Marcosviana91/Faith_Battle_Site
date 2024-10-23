@@ -3,6 +3,10 @@
 {% load static %}
 
 {% block 'head' %}
+<!-- Thanks https://summernote.org/ -->
+<link rel="stylesheet" href="{% static '/libs/summernote-0.9.0/summernote-bs5.css' %}">
+<script src="{% static '/libs/summernote-0.9.0/summernote-bs5.js' %}"></script>
+
 <link rel="stylesheet" href="{% static '/novidades/css/novo_artigo.css' %}">
 {% endblock %}
 
@@ -12,19 +16,49 @@ Novo Artigo
 
 {% block 'body' %}
 <main id="novo_artigo" class="d-flex flex-row">
-    <section id="formulario_container" class="col-6">
-        {{ form }}
-
+    <section id="formulario_container" class="container">
+        <form class="d-flex flex-wrap" action="" method="post" enctype="multipart/form-data"> {% csrf_token %}
+            <div class="col-12 col-sm-8">
+                <label class="w-100">
+                    <div class="form-text">Título:</div>
+                    <input class="form-control" type="text" name="titulo" id="titulo"
+                        placeholder="ex: Título do artigo - Nome do Jogo" required>
+                </label>
+            </div>
+            <div class="col-12 col-sm-4 ps-sm-2">
+                <label class="w-100">
+                    <div class="form-text">Tag:</div>
+                    <input class="form-control" type="text" name="tag_version" id="tag_version"
+                        placeholder="ex: nome-do-jogo_1.2.3" required>
+                </label>
+            </div>
+            <div class="col-12 col-sm-8">
+                <label>
+                    <div class="form-text">Capa:</div>
+                    <input class="form-control" type="file" name="img_capa" id="img_capa" required>
+                </label>
+            </div>
+            <div class="col-12">
+                <label>
+                    <div class="form-text">Conteúdo:</div>
+                    <textarea name="conteudo" id="summernote" required></textarea>
+                </label>
+            </div>
+            <div class="d-flex justify-content-around w-100 py-3 mb-5">
+                <button class="btn btn-sm btn-info col-5 border border-1 border-black" type="button">Pré-visualizar card</button>
+                <button class="btn btn-primary col-5" type="submit">Enviar</button>
+            </div>
+        </form>
     </section>
-    <div id="preview_container" class="col-6">
-        <p>Pré visualixar</p>
-        <!-- <img id="img_preview" src="#" style="text-indent: 0.5in;"> -->
-        <div id="preview_content" class="border border-1 border-black p-1">
-            <!-- Previsualização -->
-        </div>
-    </div>
-
 </main>
+<script>
+    // summernote
+    $(document).ready(function () {
+        $('#summernote').summernote({
+            lang: 'pt-BR',
+            height: 350,
+        });
+    });
+</script>
 <script src="{% static 'novidades/js/novo_artigo.js' %}"></script>
-<!-- <script src="{% static 'novidades/novidades.js' %}"></script> -->
 {% endblock %}
