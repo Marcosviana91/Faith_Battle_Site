@@ -51,8 +51,9 @@ def novo_artigo(request: HttpRequest):
 
 def artigo(request: HttpRequest, id: int):
     artigo = Artigo.objects.get(id=id)
-    artigo_anterior = Artigo.objects.filter(id=id-1).first()
-    proximo_artigo = Artigo.objects.filter(id=id+1).first()
+    
+    artigo_anterior = Artigo.objects.filter(id__lt=id).first()
+    proximo_artigo = Artigo.objects.filter(id__gt=id).first()
     return render(request, "artigo.html", {
         'novidades': 'active',
         'artigo': artigo,
