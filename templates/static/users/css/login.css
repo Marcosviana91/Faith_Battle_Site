@@ -17,7 +17,7 @@
     z-index: -1;
 }
 
-#login #container {
+#login #container, #avatar_container {
     padding: 8px;
     background-color: #242424d3;
     color: #687076;
@@ -25,6 +25,10 @@
 
 #login #container input {
     background-color: #27419B;
+    border: 1px solid #687076;
+    border-radius: 6px;
+    padding-left: 8px;
+    color: white;
 }
 
 #game_logo {
@@ -37,4 +41,35 @@
     font-size: 14px;
     font-weight: 700;
     color: black;
+}
+
+.avatar_image_mini {
+    border: 1px solid black;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+}
+
+.avatar_image_micro {
+    border: 1px solid black;
+    width: 25px;
+    height: 25px;
+}
+
+#avatar_container {
+    height: 200px;
+    overflow: scroll;
+    font-size: 14px;
+}
+
+.avatar_selector {
+    cursor: pointer;
+}
+
+.avatar_selector:hover {
+    box-shadow: 0px 0px 3px green;
+}
+
+#avatar_container, #form_create_user {
+    display: none;
 }

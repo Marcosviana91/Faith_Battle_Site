@@ -14,7 +14,8 @@
         <img id="login_bg" src="{% static 'general/img/login_bg_01.png' %}"
             data-src="{% static 'general/img/login_bg_01.png' %};{% static 'general/img/login_bg_02.png' %}">
         <img id="game_logo" src="{% static 'general/img/Faith_Batlle.png' %}" alt="Faith Battle logo">
-        <form class="" action="{% url 'login' %}" method="post"> {% csrf_token %}
+        <!-- Login -->
+        <form id="form_login" class="" action="{% url 'login' %}" method="post"> {% csrf_token %}
             <div id="container" class="col-12 d-flex flex-column border border-black rounded-2">
                 <label>
                     <div>Usuário:</div>
@@ -27,9 +28,94 @@
             </div>
             <div class="d-flex justify-content-around pt-3">
                 <button type="submit" class="col-4 btn btn-primary border-white rounded-3">Logar</button>
-                <button type="button" class="col-6 btn btn-success border-white rounded-3">Criar Conta</button>
+                <button type="button" class="col-6 btn btn-success border-white rounded-3"
+                    onclick="showCreateForm()">Criar Conta</button>
             </div>
         </form>
+        <!-- Create User -->
+        <form id="form_create_user" class="" action="{% url 'cadastro' %}" method="post"> {% csrf_token %}
+            <div id="container" class="col-12 d-flex flex-column border border-black rounded-2">
+                <label>
+                    <div>Usuário:</div>
+                    <input type="text" placeholder="nome de usuário" name="username" required>
+                </label>
+                <label>
+                    <div>Senha:</div>
+                    <input type="password" placeholder="senha" name="password" required>
+                </label>
+                <label>
+                    <div>Nome Completo:</div>
+                    <input type="text" placeholder="Seu nome" name="full_name" required>
+                </label>
+                <label class="d-flex justify-content-between align-items-center mt-2">
+                    <input type="hidden">
+                    <span>Avatar:</span>
+                    <img class="avatar_image_mini" src="{% static '/general/img/Avatar/1.png' %}"
+                        onclick="showAvatarForm()">
+
+                </label>
+            </div>
+            <div class="d-flex justify-content-around pt-3">
+                <button type="submit" class="col-4 btn btn-success border-white rounded-3">Criar</button>
+                <button type="button" class="col-6 btn btn-danger border-white rounded-3"
+                    onclick="showLoginForm()">Cancelar</button>
+            </div>
+        </form>
+        <!-- Avatar Selector -->
+        <div id="avatar_container" class="col-6 border border-black rounded-2 ">
+            <div class="w-100 d-flex flex-column gap-1">
+                <div data-avatar="1"
+                    class="avatar_selector d-flex flex-row justify-content-between align-items-center bg-dark border border-1 border-black rounded-1 p-1">
+                    <span>Abraão</span>
+                    <img class="avatar_image_micro" src="{% static '/general/img/Avatar/1.png' %}">
+                </div>
+                <div
+                    class="avatar_selector d-flex flex-row justify-content-between align-items-center bg-dark border border-1 border-black rounded-1 p-1">
+                    <span>Adão</span>
+                    <img class="avatar_image_micro" src="{% static '/general/img/Avatar/2.png' %}">
+                </div>
+                <div
+                    class="avatar_selector d-flex flex-row justify-content-between align-items-center bg-dark border border-1 border-black rounded-1 p-1">
+                    <span>Davi</span>
+                    <img class="avatar_image_micro" src="{% static '/general/img/Avatar/3.png' %}">
+                </div>
+                <div
+                    class="avatar_selector d-flex flex-row justify-content-between align-items-center bg-dark border border-1 border-black rounded-1 p-1">
+                    <span>Ester</span>
+                    <img class="avatar_image_micro" src="{% static '/general/img/Avatar/4.png' %}">
+                </div>
+                <div
+                    class="avatar_selector d-flex flex-row justify-content-between align-items-center bg-dark border border-1 border-black rounded-1 p-1">
+                    <span>Eva</span>
+                    <img class="avatar_image_micro" src="{% static '/general/img/Avatar/5.png' %}">
+                </div>
+                <div
+                    class="avatar_selector d-flex flex-row justify-content-between align-items-center bg-dark border border-1 border-black rounded-1 p-1">
+                    <span>Josué</span>
+                    <img class="avatar_image_micro" src="{% static '/general/img/Avatar/6.png' %}">
+                </div>
+                <div
+                    class="avatar_selector d-flex flex-row justify-content-between align-items-center bg-dark border border-1 border-black rounded-1 p-1">
+                    <span>Maria</span>
+                    <img class="avatar_image_micro" src="{% static '/general/img/Avatar/7.png' %}">
+                </div>
+                <div
+                    class="avatar_selector d-flex flex-row justify-content-between align-items-center bg-dark border border-1 border-black rounded-1 p-1">
+                    <span>Moisés</span>
+                    <img class="avatar_image_micro" src="{% static '/general/img/Avatar/8.png' %}">
+                </div>
+                <div
+                    class="avatar_selector d-flex flex-row justify-content-between align-items-center bg-dark border border-1 border-black rounded-1 p-1">
+                    <span>Salomão</span>
+                    <img class="avatar_image_micro" src="{% static '/general/img/Avatar/9.png' %}">
+                </div>
+                <div
+                    class="avatar_selector d-flex flex-row justify-content-between align-items-center bg-dark border border-1 border-black rounded-1 p-1">
+                    <span>Sansão</span>
+                    <img class="avatar_image_micro" src="{% static '/general/img/Avatar/10.png' %}">
+                </div>
+            </div>
+        </div>
     </section>
 
 </main>
