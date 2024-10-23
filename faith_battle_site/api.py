@@ -8,6 +8,8 @@ from .schemas import AuthUser, NewUser
 # from player_site.models import Card
 from .security import createAccessToken
 
+from users.views import getAvatarFileList
+
 
 api = NinjaAPI()
 
@@ -36,6 +38,11 @@ def stats(request, user_id:int):
         joined_email_adress = splited_email_adress[0][:3]+ '*'*(len(splited_email_adress[0])-3) + "@" + splited_email_adress[1]
         user_data["email"] = joined_email_adress
     return user_data
+
+@api.get("/avatar_list")
+def stats(request):
+
+    return {'avatar_list':getAvatarFileList()}
 
 
 @api.post("/auth")

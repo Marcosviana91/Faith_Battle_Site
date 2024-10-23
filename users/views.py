@@ -42,11 +42,25 @@ def cadastro(request: HttpRequest):
     return HttpResponse(f"Metodo {request.method} não implementado....")
 
 
-def login(request: HttpRequest):
+def getAvatarFileList(show_all = False):
+    '''
+    @ params  
+    `show_all` if **True** ignores hidden list
+    
+    @ returns a string list of files names to use as avatar
+    '''
     AVATAR_DIR = os.path.join(STATICFILES_DIRS[0], "general", "img", "Avatar")
+    HIDE_LIST = ["Faith Battle.png",]
     all_avatar = os.listdir(AVATAR_DIR)
+    if show_all:
+        return all_avatar
+    for avatar_to_hidden in HIDE_LIST:
+        all_avatar.remove(avatar_to_hidden)
+    return all_avatar
+
+def login(request: HttpRequest):
     if request.method == 'GET':
-        return render(request, "login.html", {'all_avatar': all_avatar})
+        return render(request, "login.html", {'all_avatar': getAvatarFileList()})
 
     username = request.POST.get("username")
     password = request.POST.get("password")
@@ -67,10 +81,29 @@ def logout(request: HttpRequest):
 def perfil(request: HttpRequest):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
-    return render(request, "logged_area.html", {
-        'perfil': 'active',
-        'logged_user': request.user,
-    })
+    player_data = Jogador.objects.get(user=request.user)
+    if request.method == "GET":
+        return render(request, "logged_area.html", {
+            'perfil': 'active',
+            'logged_user': request.user,
+            'player_data': player_data
+        })
+    elif request.method == "POST":
+        form = request.POST
+        user = User.objects.get(username=request.user.username)
+        user.first_name = form.get("first_name")
+        user.email = form.get("email")
+        player_data.avatar = form.get("avatar")
+        user.save()
+        player_data.save()
+
+        # TODO: implementar mensagem de dados salvo com sucesso
+        return render(request, "logged_area.html", {
+            'perfil': 'active',
+            'logged_user': user,
+            'player_data': player_data
+        })
+    return HttpResponse(f"Metodo {request.method} não implementado....")
 
 
 # Decorador de verificação de usuário

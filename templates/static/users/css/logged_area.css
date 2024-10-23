@@ -2,3 +2,20 @@
     width: 100%;
     height: 32px;
 }
+
+.pointer {
+    cursor: pointer;
+}
+
+.avatar_card {
+    width: 175px;
+}
+#avatar_container:hover > div {
+    scale: 1.05;
+    box-shadow: 0px 0px 12px 2px black;
+}
+.avatar_image_micro {
+    border: 1px solid black;
+    width: 50px;
+    height: 50px;
+}

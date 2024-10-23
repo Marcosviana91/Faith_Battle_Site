@@ -45,19 +45,8 @@ def novo_artigo(request: HttpRequest):
             conteudo = form['conteudo'],
             tag_version = form['tag_version']
         )
-
         novo_artigo.save()
-        # if form.is_valid():
-        #     print('SALVAR')
-        #     form.save()
         return HttpResponseRedirect(reverse('artigo', args=[novo_artigo.id]))
-        # else:
-        #     print('NÃO SALVAR')
-        #     return render(request, "novo_artigo.html", {
-        #         'novidades': 'active',
-        #         'logged_user': request.user,
-        #         'form': form
-        #     })
 
 
 def artigo(request: HttpRequest, id: int):

@@ -10,12 +10,129 @@
 
 {% block 'body' %}
 <div id="logged_header" class="d-flex justify-content-between p-1 bg-dark-subtle">
-    <p>{{logged_user.username}}</p>
-    <a href="{% url 'logout' %}">
-        <i class='bx bx-exit'></i>
-        Sair
-    </a>
+    <p>Olá {{logged_user.username}}!</p>
+    <div>
+        <button class="btn btn-sm h-100 btn-primary p-0 px-1" data-bs-toggle="modal"
+            data-bs-target="#editPlayerDataModal">
+            <i class='bx bx-edit-alt'></i>
+            Editar
+        </button>
 
+        <button class="btn btn-sm h-100 btn-outline-danger p-0 px-1" data-bs-toggle="modal"
+            data-bs-target="#logoutModal">
+            <i class='bx bx-exit'></i>
+            Sair
+        </button>
+    </div>
+</div>
+
+<main class="">
+    <section id="meus_dados" class="d-flex flex-wrap">
+        <div class="col-4">
+            <img class="w-100" src="/static/general/img/Avatar/{{player_data.avatar}}" alt="{{player_data.avatar}}"
+                title="{{player_data.avatar}}">
+        </div>
+        <div class="col-8 p-2 d-flex flex-column justify-content-evenly">
+            <div>
+                <label>Nome completo:</label>
+                <input class="w-100 ps-1" type="text" value="{{logged_user.first_name}}" placeholder="cadastre seu nome"
+                    disabled>
+            </div>
+            <div>
+                <label>Email:</label>
+                <input class="w-100 ps-1" type="text" value="{{logged_user.email}}" placeholder="cadastre seu e-mail"
+                    disabled>
+            </div>
+        </div>
+        <div class="w-100 text-center">
+            <span>Desde de </span>
+            <span>{{logged_user.date_joined}}</span>
+        </div>
+    </section>
+</main>
+
+<!-- Seus Dados Modal -->
+<div class="modal fade" id="editPlayerDataModal" tabindex="-1" aria-labelledby="editPlayerDataModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="editPlayerDataModalLabel">Seus Dados</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="w-100 row" action="" method="POST">{% csrf_token %}
+                    <div class="col-4 border border-1 border-black rounded-2 pointer bg-dark d-flex align-items-center"
+                        data-bs-target="#avatarModal" data-bs-toggle="modal" onclick="getAvatarList()">
+                        <input id="avatar_hidden" type="hidden" name="avatar" value="{{player_data.avatar}}">
+                        <img class="w-100" src="/static/general/img/Avatar/{{player_data.avatar}}"
+                            alt="{{player_data.avatar}}" title="{{player_data.avatar}}">
+                    </div>
+                    <div class="col-8 p-2 d-flex flex-column justify-content-evenly">
+                        <div>
+                            <label>Nome completo:</label>
+                            <input class="w-100 ps-1" type="text" name="first_name" value="{{logged_user.first_name}}">
+
+                        </div>
+                        <div>
+                            <label>Email:</label>
+                            <input class="w-100 ps-1" type="email" name="email" value="{{logged_user.email}}"
+                                placeholder="cadastre seu e-mail">
+
+                        </div>
+                    </div>
+                    <div class="row w-100 justify-content-evenly m-2">
+                        <button type="button" class="btn btn-secondary col-4" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary col-4">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Avatar Modal -->
+<div class="modal fade" id="avatarModal" tabindex="-1" aria-labelledby="avatarModalLabel" aria-hidden="true"
+    data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="avatarModalLabel">Escolha um avatar</h1>
+            </div>
+            <div id="avatar_list_container" class="modal-body row">
+                <!-- <div id="avatar_container" class="col-6 col-sm-4 col-lg-3 p-1">
+                    <div
+                        class="pointer d-flex flex-row justify-content-between align-items-center bg-dark border border-1 border-black rounded-1 p-1">
+                        <span class="text-light">Abraão</span>
+                        <img class="avatar_image_micro" src="/static/general/img/Avatar/Abraão.png">
+                    </div>
+
+                </div> -->
+            </div>
+            <div class="row w-100 justify-content-evenly m-2">
+                <button type="button" class="btn btn-danger col-8" data-bs-target="#editPlayerDataModal"
+                    data-bs-toggle="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Logout Modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="logoutModalLabel">Deseja mesmo sair?</h1>
+            </div>
+            <div class="modal-body row justify-content-around">
+                <button type="button" class="btn btn-success col-5" data-bs-dismiss="modal">Não</button>
+                <button class="btn_link btn btn-outline-danger col-5 p-0 px-1" data-link="{% url 'logout' %}">
+                    <i class='bx bx-exit'></i>
+                    Sair
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="{% static '/users/js/logged_area.js' %}"></script>
