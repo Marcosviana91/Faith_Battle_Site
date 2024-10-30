@@ -8,3 +8,14 @@ for (let image of $('.imagem_container')) {
         // console.log(event.target.src)
     })
 }
+
+function copyInput(element_id) {
+    if (!window.isSecureContext) {
+        window.alert('Não foi possível acessar a área de transferência.')
+    } else {
+        var copyText = document.getElementById(element_id);
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(copyText.value)
+    }
+}

@@ -14,4 +14,4 @@ class NewUser(Schema):
     username: str
     password: str
     first_name: str
-    avatar: int
+    avatar: str

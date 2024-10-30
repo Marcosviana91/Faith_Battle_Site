@@ -7,12 +7,13 @@ from django.contrib.auth import authenticate, login as login_user, logout as log
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-from faith_battle_site.settings import MEDIA_ROOT, STATICFILES_DIRS
+from faith_battle_site.settings import MEDIA_ROOT
 from .forms import UploadFileForm
 from .models import Jogador
 from novidades.models import Artigo
 from games.models import Game
 
+from utils.files import getAvatarFileList
 
 MAX_DIR_SIZE_IM_MB = 200
 
@@ -25,7 +26,7 @@ def cadastro(request: HttpRequest):
         # return render(request, "cadastro.html")
     if request.method == "POST":
         form = request.POST
-        username = form.get("username")
+        username = form.get("username").lower()
 
         user = User.objects.filter(username=username).first()
         if user:
@@ -40,24 +41,6 @@ def cadastro(request: HttpRequest):
         novo_jogador.save()
         return HttpResponseRedirect(reverse('login'))
     return HttpResponse(f"Metodo {request.method} não implementado....")
-
-
-def getAvatarFileList(show_all = False):
-    '''
-    @ params  
-    `show_all` if **True** ignores hidden list
-    
-    @ returns a string list of files names to use as avatar
-    '''
-    AVATAR_DIR = os.path.join(STATICFILES_DIRS[0], "general", "img", "Avatar")
-    all_avatar = os.listdir(AVATAR_DIR)
-    if show_all:
-        return all_avatar
-    public_avatar = []
-    for _avatar in all_avatar:
-        if not _avatar.startswith('_'):
-            public_avatar.append(_avatar)
-    return public_avatar
 
 def login(request: HttpRequest):
     if request.method == 'GET':
