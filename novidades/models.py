@@ -25,7 +25,8 @@ class Artigo(models.Model):
         folder = f'{self.data_hora_publicacao.year}/{
             self.data_hora_publicacao.month}/{self.data_hora_publicacao.day}/'
         img_capa_extension = self.img_capa.name.split(".")[-1]
-        self.img_capa.name = f'{folder}/img_capa_{self.titulo.lower().replace(' ', '-')}_{self.tag_version}_{img_capa_extension}'
+        if not self.img_capa:
+            self.img_capa.name = f'{folder}/img_capa_{self.tag_version}_{self.data_hora_publicacao.timestamp()}_{img_capa_extension}'
         super().save(*args, **kwargs)
 
 
