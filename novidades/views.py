@@ -15,7 +15,7 @@ def site(request: HttpRequest):
 
 
 def novidades(request: HttpRequest):
-    destaques = Artigo.objects.all() # de 3 a 7 itens
+    destaques = Artigo.objects.all() # de 3 a 5 itens
     todos_artigos = Artigo.objects.all().order_by('-data_hora_publicacao')
     ultimos_artigos = todos_artigos[:5] # 5 itens
     # print(destaques)
