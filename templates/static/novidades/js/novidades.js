@@ -24,7 +24,6 @@ for (let indicator = 0 ;  indicator < indicators.length ; indicator++) {
 // Transform o conteúdo de uma elemento .toInnerHtml
 const toInnerHtml = $('.toInnerHtml')
 for (element of toInnerHtml) {
-    console.log(element.innerText)
     element.innerHTML = element.innerText
 }
 

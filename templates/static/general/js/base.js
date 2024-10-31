@@ -40,7 +40,7 @@ const WIDTH = 300
 var staff_menu_is_open = false;
 
 
-$(btn_staff_menu).on("click", function() {
+$('#btn_staff_menu').on("click", function() {
     console.log("staff_menu_is_open", staff_menu_is_open);
     var positionX = !staff_menu_is_open ? -WIDTH : 0;
     console.log("positionX", positionX);
