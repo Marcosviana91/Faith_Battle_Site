@@ -9,6 +9,7 @@ RUN python -m pip install -r requirements.txt
 
 
 # py manage.py runserver 0.0.0.0:3111
+RUN python manage.py collectstatic
 
 CMD [ "python", "manage.py", "runserver", "0.0.0.0:3111" ]
 # CMD [ "python" ]
