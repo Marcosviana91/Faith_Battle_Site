@@ -56,6 +56,7 @@ Editar - {{artigo.titulo}}
         <div id="article_content" class="d-none">{{ artigo.conteudo }}</div>
     </section>
 </main>
+<!-- Modal Preview -->
 <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -70,7 +71,7 @@ Editar - {{artigo.titulo}}
                         <h4 id="preview_titulo" class="text-center">
                             Insira um Título
                         </h4>
-                        <img id="img_preview" src="{% static '/general/img/Avatar/_Faith Battle.png' %}" alt="" title=""
+                        <img src="{{artigo.img_capa.url}}" alt="" title=""
                             class="">
                     </div>
                     <div id="txt_place_holder" class="col-6 pt-1">
