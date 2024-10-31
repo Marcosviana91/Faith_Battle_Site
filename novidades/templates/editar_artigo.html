@@ -47,7 +47,7 @@ Editar - {{artigo.titulo}}
             </div>
             <div class="d-flex justify-content-around w-100 py-3 mb-5">
                 <!-- TODO: Pré-visualizar card - Criar modal com o card -->
-                <button id="btn_salvar" class="btn btn-sm btn-info col-5 border border-1 border-black" type="button"
+                <button id="btn_preview" class="btn btn-sm btn-info col-5 border border-1 border-black" type="button"
                     data-bs-toggle="modal" data-bs-target="#previewModal">Pré-visualizar
                     card</button>
                 <button class="btn btn-primary col-5" type="submit">Enviar</button>
@@ -69,7 +69,7 @@ Editar - {{artigo.titulo}}
                 <div id="artigo_container" class="row">
                     <div id="img_place_holder" class="col-6 border border-1 border-white">
                         <h4 id="preview_titulo" class="text-center">
-                            Insira um Título
+                            {{artigo.titulo}}
                         </h4>
                         <img src="{{artigo.img_capa.url}}" alt="" title=""
                             class="">
@@ -79,16 +79,16 @@ Editar - {{artigo.titulo}}
                     </div>
                     <div class="tags w-100">
                         <div id="preview_tag" class="col-6 border border-1 border-black rounded rounded-3 text-center">
-                            TAG DO ARTIGO</div>
+                            {{artigo.tag_version}}</div>
                         <div id="preview_data_publicacao"
                             class="col-6 border border-1 border-black rounded rounded-3 text-center">
-                            DATA DE PUBLICACÃO</div>
+                            {{artigo.data_hora_publicacao.date}}</div>
                     </div>
                 </div>
                 <!-- Mini CARD -->
                 <div id="artigo_container_mini">
                     <h5 id="preview_titulo" class="text-center">
-                        Insira um Título
+                        {{artigo.titulo}}
                     </h5>
                     <div id="txt_place_holder" class="px-1">
                         <p class="preview_conteudo"></p>
@@ -96,11 +96,11 @@ Editar - {{artigo.titulo}}
                     </div>
                     <div class="tags w-100">
                         <div id="preview_tag" class="col-6 border border-1 border-black rounded rounded-2 text-center">
-                            TAG DO ARTIGO
+                            {{artigo.tag_version}}
                         </div>
                         <div id="preview_data_publicacao"
                             class="col-6 border border-1 border-black rounded rounded-2 text-center">
-                            DATA DE PUBLICACÃO
+                            {{artigo.data_hora_publicacao.date}}
                         </div>
                     </div>
                 </div>

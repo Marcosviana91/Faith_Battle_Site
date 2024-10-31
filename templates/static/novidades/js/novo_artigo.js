@@ -55,6 +55,15 @@ $('#btn_salvar').on('click', function () {
         img_preview.src = image
     }
     preview_data_publicacao.innerText = new Date().toLocaleDateString()
-    data_atual = new Date()
+})
+
+$('#btn_preview').on('click', function () {
+    var summernoteStr = $('#summernote').summernote('code');
+    if (summernoteStr) {
+        for (var element of $('.preview_conteudo')) {
+            element.innerHTML = summernoteStr
+            element.innerHTML = summernoteStr
+        }
+    }
 })
 
