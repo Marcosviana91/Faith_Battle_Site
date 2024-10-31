@@ -3,7 +3,8 @@
 {% load static %}
 
 {% block 'head' %}
-<link rel="stylesheet" href="{% static 'novidades/css/novidades.css' %}">
+<link rel="stylesheet" href="{% static '/novidades/css/novidades.css' %}">
+<link rel="stylesheet" href="{% static '/novidades/css/cards_styles.css' %}">
 {% endblock %}
 
 {% block 'title' %}
@@ -69,8 +70,10 @@ Faith Battle - Novidades
                     <div class="overlay p-1"></div>
 
                     <div class="tags w-100">
-                        <div class="col-6 border border-1 border-black rounded rounded-3 text-center">{{artigo.tag_version}}</div>
-                        <div class="col-6 border border-1 border-black rounded rounded-3 text-center">{{artigo.data_hora_publicacao.date}}</div>
+                        <div class="col-6 border border-1 border-black rounded rounded-3 text-center">
+                            {{artigo.tag_version}}</div>
+                        <div class="col-6 border border-1 border-black rounded rounded-3 text-center">
+                            {{artigo.data_hora_publicacao.date}}</div>
                     </div>
 
                 </div>
@@ -79,24 +82,31 @@ Faith Battle - Novidades
             </div>
         </section>
     </main>
-    <aside class="col-3 d-none d-sm-flex flex-column ms-2 gap-1 p-2">
+    <aside class="d-none d-md-flex flex-column ms-2 gap-1 p-2">
         <h4 class="text-center">Todos os artigos</h4>
         <input type="text" name="filtrar_artigo" id="filtrar_artigo" class="rounded-2" placeholder="Filtrar por título">
-        <div class="d-flex flex-column gap-1">
+        <div class="d-flex flex-column gap-1 align-items-end">
             {% for artigo in todos_artigos %}
-            <div class="btn_link card flex-shrink-0 flex-grow-0" data-link="{% url 'artigo' artigo.id %}">
-                <div class="card-body bg-black bg-opacity-25">
-                    <h5 class="card-title">
-                        {{artigo.titulo}}
-                    </h5>
-                    <span class="badge text-bg-info">{{artigo.tag_version}}</span>
-                    <span class="badge text-bg-secondary">{{artigo.data_hora_publicacao.date}}</span>
+            <!-- Mini CARD -->
+            <div id="artigo_container_mini" class="btn_link" data-link="{% url 'artigo' artigo.id %}">
+                <h5 class="text-center">
+                    {{artigo.titulo}}
+                </h5>
+                <div id="txt_place_holder" class="px-1">
+                    <p class="toInnerHtml">{{artigo.conteudo}}</p>
+                </div>
+                <div class="tags w-100">
+                    <div class="col-6 border border-1 border-black rounded rounded-2 text-center">
+                        {{artigo.tag_version}}
+                    </div>
+                    <div class="col-6 border border-1 border-black rounded rounded-2 text-center">
+                        {{artigo.data_hora_publicacao.date}}
+                    </div>
                 </div>
             </div>
             {% endfor %}
         </div>
-
     </aside>
 </div>
-<script src="{% static 'novidades/js/novidades.js' %}"></script>
+<script src="{% static '/novidades/js/novidades.js' %}"></script>
 {% endblock %}

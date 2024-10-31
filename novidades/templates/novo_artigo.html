@@ -8,6 +8,7 @@
 <script src="{% static '/libs/summernote-0.9.0/summernote-bs5.js' %}"></script>
 
 <link rel="stylesheet" href="{% static '/novidades/css/novo_artigo.css' %}">
+<link rel="stylesheet" href="{% static '/novidades/css/cards_styles.css' %}">
 {% endblock %}
 
 {% block 'title' %}
@@ -45,12 +46,70 @@ Novo Artigo
                 </label>
             </div>
             <div class="d-flex justify-content-around w-100 py-3 mb-5">
-                <button class="btn btn-sm btn-info col-5 border border-1 border-black" type="button">Pré-visualizar card</button>
+                <!-- TODO: Pré-visualizar card - Criar modal com o card -->
+                <button id="btn_salvar" class="btn btn-sm btn-info col-5 border border-1 border-black" type="button"
+                    data-bs-toggle="modal" data-bs-target="#previewModal">Pré-visualizar
+                    card</button>
                 <button class="btn btn-primary col-5" type="submit">Enviar</button>
             </div>
         </form>
     </section>
 </main>
+<div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="previewModalLabel">Pré-visualização</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex justify-content-center align-items-center flex-column row-gap-2">
+                <!-- CARD ARTIGO -->
+                <div id="artigo_container" class="row">
+                    <div id="img_place_holder" class="col-6 border border-1 border-white">
+                        <h4 id="preview_titulo" class="text-center">
+                            Insira um Título
+                        </h4>
+                        <img id="img_preview" src="{% static '/general/img/Avatar/_Faith Battle.png' %}" alt="" title=""
+                            class="">
+                    </div>
+                    <div id="txt_place_holder" class="col-6 pt-1">
+                        <p class="preview_conteudo"></p>
+                    </div>
+                    <div class="tags w-100">
+                        <div id="preview_tag" class="col-6 border border-1 border-black rounded rounded-3 text-center">
+                            TAG DO ARTIGO</div>
+                        <div id="preview_data_publicacao"
+                            class="col-6 border border-1 border-black rounded rounded-3 text-center">
+                            DATA DE PUBLICACÃO</div>
+                    </div>
+                </div>
+                <!-- Mini CARD -->
+                <div id="artigo_container_mini">
+                    <h5 id="preview_titulo" class="text-center">
+                        Insira um Título
+                    </h5>
+                    <div id="txt_place_holder" class="px-1">
+                        <p class="preview_conteudo"></p>
+
+                    </div>
+                    <div class="tags w-100">
+                        <div id="preview_tag" class="col-6 border border-1 border-black rounded rounded-2 text-center">
+                            TAG DO ARTIGO
+                        </div>
+                        <div id="preview_data_publicacao"
+                            class="col-6 border border-1 border-black rounded rounded-2 text-center">
+                            DATA DE PUBLICACÃO
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     // summernote
     $(document).ready(function () {

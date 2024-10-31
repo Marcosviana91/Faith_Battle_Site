@@ -1,3 +1,16 @@
 form {
     max-width: 672px;
 }
+
+.note-editable {
+    cursor: text;
+}
+
+.preview_conteudo {
+    text-indent: 0.15in;
+    text-align: justify;
+    font-size: small;
+    height: 11em;
+    overflow: hidden;
+}
+

@@ -6,45 +6,55 @@ function readURL(input) {
             image = e.target.result;
         };
         reader.onloadend = function () {
-            preview_content.innerHTML = renderContent()
+            // console.log(image)
         }
         reader.readAsDataURL(input.files[0])
     }
 }
 
-const novo_conteudo = $('#novo_conteudo')[0]
-const preview_content = $('#preview_content')[0]
+// Preview
+const preview_titulo = $('#preview_titulo')[0]
 const img_preview = $('#img_preview')[0]
-const novo_conteudo_titulo = $('#novo_conteudo_titulo')[0]
+const preview_conteudo = $('#preview_conteudo')[0]
+const preview_tag = $('#preview_tag')[0]
+const preview_data_publicacao = $('#preview_data_publicacao')[0]
 
 var title = ''
+var tag = ''
 var image = ''
 var content = ''
 
-function renderContent() {
-    return `
-    <h1 class="text-center">${title}</h1>
-    <img id="img_preview" class="w-100 mb-2" style="max-height: 300px;" src="${image}">
-    ` + content
-}
-
-
-$('#novo_conteudo_titulo').on('input', function (e) {
+$('#titulo').on('input', function (e) {
     title = e.target.value
-    preview_content.innerHTML = renderContent()
+    if (title == '') {
+        title = 'Insira um Título'
+    }
+    preview_titulo.innerHTML = title
+});
+$('#tag_version').on('input', function (e) {
+    tag = e.target.value
+    if (tag == '') {
+        tag = 'nome-do-jogo_1.2.3'
+    }
+    preview_tag.innerHTML = tag
 });
 
-$('#id_img_capa').on('change', function () {
+$('#img_capa').on('change', function (evt) {
     readURL(this)
 });
 
-
 $('#btn_salvar').on('click', function () {
     var summernoteStr = $('#summernote').summernote('code');
-    $('#novo_conteudo')[0].innerHTML = summernoteStr
-    content = summernoteStr
-    preview_content.innerHTML = renderContent()
+    if (summernoteStr) {
+        for (var element of $('.preview_conteudo')) {
+            element.innerHTML = summernoteStr
+            element.innerHTML = summernoteStr
+        }
+    }
+    if (image) {
+        img_preview.src = image
+    }
+    preview_data_publicacao.innerText = new Date().toLocaleDateString()
+    data_atual = new Date()
 })
-
-
 
