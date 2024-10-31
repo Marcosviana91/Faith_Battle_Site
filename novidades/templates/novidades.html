@@ -53,20 +53,26 @@ Faith Battle - Novidades
             <h2 class="pt-2">Últimos artigos</h2>
             <div class="row justify-content-around gap-3 p-2">
                 {% for artigo in ultimos_artigos %}
-                <div id="artigo_container" class="btn_link" data-link="{% url 'artigo' artigo.id %}">
-                    <img src="{{ artigo.img_capa.url}}" alt="Sistema de movimentação" class="">
-                    <div class="overlay p-1">
-                        <h5 class="text-center">
+                <!-- CARD ARTIGO -->
+                <div id="artigo_container" class="btn_link row" data-link="{% url 'artigo' artigo.id %}">
+                    <div id="img_place_holder" class="col-6 border border-1 border-white">
+                        <h4 class="text-center">
                             {{artigo.titulo}}
-                        </h5>
+                        </h4>
+                        <img src="{{ artigo.img_capa.url}}" alt="{{artigo.titulo}}" title="{{artigo.titulo}}" class="">
+                    </div>
+                    <div id="txt_place_holder" class="col-6 pt-1">
                         <p class="toInnerHtml">
                             {{artigo.conteudo}}
                         </p>
-                        <div class="tags">
-                            <span class="badge text-bg-info">{{artigo.tag_version}}</span>
-                            <span class="badge text-bg-secondary">{{artigo.data_hora_publicacao.date}}</span>
-                        </div>
                     </div>
+                    <div class="overlay p-1"></div>
+
+                    <div class="tags w-100">
+                        <div class="col-6 border border-1 border-black rounded rounded-3 text-center">{{artigo.tag_version}}</div>
+                        <div class="col-6 border border-1 border-black rounded rounded-3 text-center">{{artigo.data_hora_publicacao.date}}</div>
+                    </div>
+
                 </div>
                 {% endfor %}
 

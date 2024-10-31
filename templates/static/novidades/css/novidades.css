@@ -2,52 +2,99 @@
     height: 250px;
 }
 
-#novidades #ultimos_artigos > div {
-    background-color: #0000006e;
+#novidades #ultimos_artigos>div {
+    /* background-color: #0000006e; */
     background-image: url('../img/background.png');
     background-size: cover;
     background-position: center;
-    background-blend-mode: soft-light ;
+    /* background-blend-mode: soft-light; */
 }
 
-#novidades #ultimos_artigos #artigo_container {
+#artigo_container {
     cursor: pointer;
     position: relative;
     height: 180px;
-    width: 250px;
+    width: 300px;
     border: 1px solid black;
     border-radius: 8px;
+    overflow: hidden;
+    background-color: #85B6FD;
+    transition: all .5s;
 }
 
-#novidades #ultimos_artigos #artigo_container img {
+#artigo_container:hover {
+    scale: 1.1;
+    box-shadow: 0 0 10px 1px black;
+}
+
+#img_place_holder {
+    position: relative;
+}
+
+#img_place_holder h4 {
+    position: absolute;
+    background-color: #ffffff8e;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    color: #000000;
+}
+
+#img_place_holder img {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
+    z-index: 0;
 }
+
+#txt_place_holder p {
+    text-indent: 0.15in;
+    text-align: justify;
+    font-size: small;
+    height: 11em;
+    overflow: hidden;
+}
+
 .overlay {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: #000000a9;
-    z-index: 10;
-}
-.overlay:hover {
-    background-color: #000000d3;
-}
-.overlay h5,p {
-    color: white;
-    text-align: justify;
-}
-.overlay .tags {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    background-color: #00000021;
+    z-index: 1;
 }
 
-#novidades #ultimos_artigos #artigo_container p {
-    height: 6em;
-    overflow: hidden;
+.overlay:hover {
+    background-color: transparent;
+}
+
+#artigo_container .tags {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    height: 24px;
+    justify-content: space-between;
+
+
+}
+
+#artigo_container .tags div {
+    font-size: 8pt;
+    font-weight: 700;
+    line-height: 24px;
+}
+
+#artigo_container .tags div:nth-child(1) {
+    background-color: #51ebff;
+}
+
+#artigo_container .tags div:nth-child(2) {
+    background-color: #4e4e4e;
+    color: white;
 }
 
 aside>div {
