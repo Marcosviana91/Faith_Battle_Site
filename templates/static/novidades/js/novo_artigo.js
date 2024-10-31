@@ -17,7 +17,6 @@ const preview_titulo = $('#preview_titulo')[0]
 const img_preview = $('#img_preview')[0]
 const preview_conteudo = $('#preview_conteudo')[0]
 const preview_tag = $('#preview_tag')[0]
-const preview_data_publicacao = $('#preview_data_publicacao')[0]
 
 var title = ''
 var tag = ''
@@ -47,22 +46,22 @@ $('#btn_salvar').on('click', function () {
     var summernoteStr = $('#summernote').summernote('code');
     if (summernoteStr) {
         for (var element of $('.preview_conteudo')) {
-            element.innerHTML = summernoteStr
-            element.innerHTML = summernoteStr
+            element.innerHTML = String(summernoteStr).slice(0, 120)+'...'
         }
     }
     if (image) {
         img_preview.src = image
     }
-    preview_data_publicacao.innerText = new Date().toLocaleDateString()
+    for (var element of $('.preview_data_publicacao')) {
+        element.innerText = new Date().toLocaleDateString()
+    } 
 })
 
 $('#btn_preview').on('click', function () {
     var summernoteStr = $('#summernote').summernote('code');
     if (summernoteStr) {
         for (var element of $('.preview_conteudo')) {
-            element.innerHTML = summernoteStr
-            element.innerHTML = summernoteStr
+            element.innerHTML = String(summernoteStr).slice(0, 120)+'...'
         }
     }
 })
