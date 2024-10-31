@@ -21,10 +21,5 @@ for (let indicator = 0 ;  indicator < indicators.length ; indicator++) {
     indicators[indicator].dataset['bsSlideTo'] = indicator
 }
 
-// Transform o conteúdo de uma elemento .toInnerHtml
-const toInnerHtml = $('.toInnerHtml')
-for (element of toInnerHtml) {
-    element.innerHTML = element.innerText
-}
 
 

@@ -4,6 +4,7 @@
 
 {% block 'head' %}
 <link rel="stylesheet" href="{% static 'users/css/meus_artigos.css' %}">
+<link rel="stylesheet" href="{% static '/novidades/css/cards_styles.css' %}">
 {% endblock %}
 
 {% block 'title' %}
@@ -15,23 +16,53 @@ Meus Artigos
     <div class="d-flex justify-content-between">
         <h1>Meus Artigos</h1>
         <button class="btn_link btn btn-sm btn-primary" data-link="{% url 'novo_artigo' %}">Novo artigo</button>
-
     </div>
     <label class="mb-4 w-100">
         <span>Filtar: </span>
         <input type="text" class="form-control" placeholder="Filtar por título">
     </label>
-    <div id="meus_artigos" class="d-flex flex-wrap justify-content-between">
+    <div id="meus_artigos" class="d-flex flex-wrap justify-content-start column-gap-5 row-gap-2 position-relative">
         {% for artigo in my_articles %}
-        <div class="meus_artigos btn_link p-2 col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2"
-            data-link="{% url 'artigo' artigo.id %}">
-            <h5 class="text-center">
-                {{artigo.titulo}}
-            </h5>
-            <img id="artigo_img_capa" src="{{ artigo.img_capa.url }}" alt="{{artigo.titulo}}" class="w-100">
+        <!-- CARD ARTIGO -->
+        <div id="artigo_container" class="row">
+            <div id="img_place_holder" class="col-6 border border-1 border-white position-relative">
+                <h4 class="text-center">
+                    {{artigo.titulo}}
+                </h4>
+                <img src="{{ artigo.img_capa.url}}" alt="{{artigo.titulo}}" title="{{artigo.titulo}}" class="">
+                <div class="btn_link overlay" data-link="{% url 'artigo' artigo.id %}">
+                    <svg aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-width="2"
+                            d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
+                        <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    </svg>
+                </div>
+            </div>
+            <div id="txt_place_holder" class="col-6 pt-1 position-relative">
+                <p class="toInnerHtml">
+                    {{artigo.conteudo}}
+                </p>
+                <div class="btn_link overlay" data-link="{% url 'editar_artigo' artigo.id %}">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                      </svg>
+                      
+
+
+                </div>
+            </div>
+
+            <div class="tags w-100">
+                <div class="col-6 border border-1 border-black rounded rounded-3 text-center">
+                    {{artigo.tag_version}}</div>
+                <div class="col-6 border border-1 border-black rounded rounded-3 text-center">
+                    {{artigo.data_hora_publicacao.date}}</div>
+            </div>
         </div>
         {% endfor %}
     </div>
 </section>
 <script src="{% static 'users/js/meus_artigos.js' %}"></script>
+<script src="{% static '/novidades/js/cards_scripts.js' %}"></script>
 {% endblock %}

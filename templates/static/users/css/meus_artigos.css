@@ -7,3 +7,20 @@
     scale: 1.01;
     box-shadow: 2px 4px 16px 5px black;
 }
+
+.overlay {
+    color: #63636373;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 99;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay svg:hover  {
+    color: #616161;
+}

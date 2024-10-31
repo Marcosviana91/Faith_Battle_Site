@@ -15,9 +15,9 @@ def site(request: HttpRequest):
 
 
 def novidades(request: HttpRequest):
-    destaques = Artigo.objects.all() # de 3 a 5 itens
+    destaques = Artigo.objects.all()  # de 3 a 5 itens
     todos_artigos = Artigo.objects.all().order_by('-data_hora_publicacao')
-    ultimos_artigos = todos_artigos[:5] # 5 itens
+    ultimos_artigos = todos_artigos[:5]  # 5 itens
     # print(destaques)
     return render(request, "novidades.html", {
         'destaques': destaques,
@@ -37,21 +37,44 @@ def novo_artigo(request: HttpRequest):
     elif request.method == "POST":
         form = request.POST
         img_capa = request.FILES['img_capa']
-        novo_artigo =Artigo(
+        novo_artigo = Artigo(
             destaque=False,
-            titulo = form['titulo'],
-            img_capa = img_capa,
-            autor = request.user,
-            conteudo = form['conteudo'],
-            tag_version = form['tag_version']
+            titulo=form['titulo'],
+            img_capa=img_capa,
+            autor=request.user,
+            conteudo=form['conteudo'],
+            tag_version=form['tag_version']
         )
         novo_artigo.save()
         return HttpResponseRedirect(reverse('artigo', args=[novo_artigo.id]))
 
 
+@login_required(login_url="/users/login")
+def editar_artigo(request: HttpRequest, id: int):
+    if request.method == "GET":
+        artigo = Artigo.objects.get(id=id)
+        if (artigo.autor != request.user):
+            return HttpResponseRedirect(reverse('artigo', args=[id]))
+
+        return render(request, "editar_artigo.html", {
+            'novidades': 'active',
+            'logged_user': request.user,
+            'artigo': artigo,
+        })
+    elif request.method == "POST":
+        form = request.POST
+        artigo = Artigo.objects.get(id=id)
+        artigo.titulo = form['titulo']
+        artigo.conteudo = form['conteudo']
+        artigo.tag_version = form['tag_version']
+
+        artigo.save()
+        return HttpResponseRedirect(reverse('artigo', args=[artigo.id]))
+
+
 def artigo(request: HttpRequest, id: int):
     artigo = Artigo.objects.get(id=id)
-    
+
     artigo_anterior = Artigo.objects.filter(id__lt=id).first()
     proximo_artigo = Artigo.objects.filter(id__gt=id).first()
     return render(request, "artigo.html", {
