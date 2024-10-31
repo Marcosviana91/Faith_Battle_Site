@@ -75,7 +75,7 @@ def editar_artigo(request: HttpRequest, id: int):
 def artigo(request: HttpRequest, id: int):
     artigo = Artigo.objects.get(id=id)
 
-    artigo_anterior = Artigo.objects.filter(id__lt=id).first()
+    artigo_anterior = Artigo.objects.filter(id__lt=id).last()
     proximo_artigo = Artigo.objects.filter(id__gt=id).first()
     return render(request, "artigo.html", {
         'novidades': 'active',
