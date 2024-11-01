@@ -44,9 +44,11 @@ def cadastro(request: HttpRequest):
 
 def login(request: HttpRequest):
     if request.method == 'GET':
+        if request.user.is_authenticated:
+            return HttpResponseRedirect(reverse('perfil'))
         return render(request, "login.html", {'all_avatar': getAvatarFileList()})
 
-    username = request.POST.get("username")
+    username = request.POST.get("username").lower()
     password = request.POST.get("password")
 
     user = authenticate(username=username, password=password)
