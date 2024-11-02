@@ -1,4 +1,5 @@
 import os
+import json
 
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
@@ -33,14 +34,16 @@ def cadastro(request: HttpRequest):
             return HttpResponse("Já tem um username cadastrado")
         password = form.get("password")
         first_name = form.get("first_name")
-        user = User.objects.create_user(username=username, password=password, first_name=first_name)
+        user = User.objects.create_user(
+            username=username, password=password, first_name=first_name)
         user.save()
-        
+
         avatar = form.get("avatar")
         novo_jogador = Jogador(user=user, avatar=avatar)
         novo_jogador.save()
         return HttpResponseRedirect(reverse('login'))
     return HttpResponse(f"Metodo {request.method} não implementado....")
+
 
 def login(request: HttpRequest):
     if request.method == 'GET':
@@ -108,14 +111,13 @@ def getImages(request: HttpRequest):
     user_media_url = os.path.join(os.path.basename(
         MEDIA_ROOT), "users_images", user_id)
 
-    # TODO: a imagem recém enviada não está aparecendo
-    user_dir_size = 0
     all_images = os.listdir(user_media_dir)
+    user_dir_size = 0
     for img in all_images:
         img_size = os.path.getsize(os.path.join(user_media_dir, img))
         user_dir_size += img_size
-    user_dir_size = (user_dir_size/1024/1024)
-    print(f'{round(user_dir_size, 2)}/{MAX_DIR_SIZE_IM_MB} MB')
+    user_dir_size = round(user_dir_size/1024/1024, 2)
+    print(f'{user_dir_size}/{MAX_DIR_SIZE_IM_MB} MB')
 
     if request.method == "POST":
         form = UploadFileForm(request.POST, request.FILES)
@@ -125,6 +127,8 @@ def getImages(request: HttpRequest):
                 'user_media_url': user_media_url,
                 'form': form,
                 'logged_user': request.user,
+                'MAX_DIR_SIZE_IM_MB': MAX_DIR_SIZE_IM_MB,
+                'user_dir_size': user_dir_size
             })
         if form.is_valid():
             imagem = form.files['imagem']
@@ -134,13 +138,32 @@ def getImages(request: HttpRequest):
                     destination.write(chunk)
 
     else:
+        file_to_delete = request.GET.get('del')
+        if file_to_delete:
+            print(f"Apagar {file_to_delete}")
+            os.remove(os.path.join(user_path,file_to_delete))
+            return HttpResponseRedirect(reverse('minhas_imagens'))
         form = UploadFileForm()
-
+    all_images = os.listdir(user_media_dir)
+    images_info = []
+    
+    user_dir_size = 0
+    for img in all_images:
+        img_size = os.path.getsize(os.path.join(user_media_dir, img))
+        images_info.append({
+            'name':img,
+            'size': round(img_size/1024/1024, 2) # in MB
+        })
+        user_dir_size += img_size
+    user_dir_size = round(user_dir_size/1024/1024,2)
     return render(request, "minhas_imagens.html", {
-        'all_images': all_images,
+        'all_images':all_images,
+        'images_info':json.dumps(images_info),
         'user_media_url': user_media_url,
         'form': form,
         'logged_user': request.user,
+        'MAX_DIR_SIZE_IM_MB': MAX_DIR_SIZE_IM_MB,
+        'user_dir_size': user_dir_size
     })
 
 

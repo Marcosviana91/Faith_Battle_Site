@@ -1,5 +1,3 @@
-
-
 $('.carousel-item')[0].classList.add("active")
 // const indicators = $('.carousel-indicators button')
 // indicators[0].classList.add("active")

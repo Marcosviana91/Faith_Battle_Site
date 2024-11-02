@@ -1,8 +1,7 @@
 // thanks https://gist.github.com/dragermrb/6d4b7fda5f183524d0ebe4b0a7d8635c
-// TODO: adicionar esta função para todas os forms de imagens
 $('.imageUploadResizer').imageUploadResizer({
-    max_width: 1280, // Defaults 1000
-    max_height: 1280, // Defaults 1000
+    max_width: 1281, // Defaults 1000
+    max_height: 1281, // Defaults 1000
     quality: 0.8, // Defaults 1
     do_not_resize: ['gif', 'svg'], // Defaults []
 });

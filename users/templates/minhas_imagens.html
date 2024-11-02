@@ -22,16 +22,21 @@ Faith Battle - Minhas Imagens
     </div>
 </section>
 <section class="container mt-3">
-    <h1>Minhas Imagens</h1>
+    <div class="d-flex flex-row align-items-center justify-content-between">
+        <h1>Minhas Imagens</h1>
+        <span>{{user_dir_size}}/{{MAX_DIR_SIZE_IM_MB}}MB</span>
+    </div>
     <label class="mb-2 w-100">
         <span>Filtar: </span>
         <input type="text" class="form-control" placeholder="Filtar por nome">
     </label>
-    <div class="d-flex flex-wrap">
+    <div id="images_info_container" class="d-flex flex-wrap gap-2">
+        <div id="images_info" data-images_info="{{images_info}}" hidden></div>
         {% for image in all_images %}
-        <div class="imagem_container p-1 col-6 col-sm-4 col-md-2" data-bs-toggle="modal" data-bs-target="#cardModal">
-            <img src="../../{{user_media_url}}/{{image}}" class="w-100">
-            <p class="text-center">{{image}}</p>
+        <div class="imagem_container p-1" data-bs-toggle="modal" data-bs-target="#cardModal">
+            <img src="../../{{user_media_url}}/{{image}}">
+            <div id="image_name" class="text-center fw-bold bg-white bg-opacity-50">{{image}}</div>
+            <div id="image_size" class="text-center bg-white bg-opacity-50"></div>
         </div>
         {% endfor %}
     </div>
@@ -51,13 +56,14 @@ Faith Battle - Minhas Imagens
                     <div class="d-flex flex-row">
                         <input type="text" id="modal_input" value="" disabled
                             class="bg-black bg-opacity-25 ps-2 w-100 me-2">
-                        <button class="btn btn-outline-primary" onclick="copyInput('modal_input')">
+                        <button class="btn btn-outline-primary position-relative" onclick="copyInput('modal_input')">
+                            <span id="btn_copy_popover" class="position-absolute px-2 bg-white border border-1 border-black text-black rounded rounded-pill">Copiado!</span>
                             <i class='bx bx-copy'></i>
                         </button>
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-danger">Apagar Imagem</button>
+                    <button id="btn_apagar_imagem" type="button" class="btn_link btn btn-danger" data-link="">Apagar Imagem</button>
                     <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>

@@ -1,9 +1,39 @@
+.imagem_container {
+    position: relative;
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imagem_container img {
+    max-width: 150px;
+    max-height: 150px;
+}
+
 .imagem_container:hover {
     transform: scale(1.1);
 }
 
-.imagem_container p {
-    font-size: small;
+#image_name {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: 'green';
+}
+
+
+#btn_copy_popover {
+    left: -30px;
+    top: -30px;
+    display: none;
+}
+
+#image_size {
+    font-size: 12px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 @media screen and (min-width: 372px) {
