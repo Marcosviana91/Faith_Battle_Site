@@ -8,7 +8,6 @@ Editar - {{game.title}}
 
 {% block 'head'%}
 <link rel="stylesheet" href="{% static '/games/css/editar_jogo.css' %}">
-<script src="{% static '/libs/jquery/jquery-image-upload-resizer.js' %}"></script>
 {% endblock %}
 
 {% block 'body' %}
@@ -157,7 +156,7 @@ Editar - {{game.title}}
                     </label>
                     <label class="d-flex flex-column">
                         Playmat:
-                        <input class="form-control border border-1 border-primary" type="file" accept="image/*"
+                        <input class="imageUploadResizer form-control border border-1 border-primary" type="file" accept="image/*"
                             name="image" id="playmat_image" required>
                     </label>
                     <div class="modal-footer">
