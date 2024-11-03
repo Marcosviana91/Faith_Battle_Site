@@ -29,7 +29,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '*']
+ALLOWED_HOSTS = ['localhost','localhost:3180', '*']
+CSRF_TRUSTED_ORIGINS = ['http://localhost','http://localhost:3180', 'http://*']
 
 
 # Application definition
