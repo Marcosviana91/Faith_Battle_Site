@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.postgres',
+    # 'django.contrib.postgres',
     # My Apps
     'users',
     'games',
@@ -95,19 +95,27 @@ WSGI_APPLICATION = 'faith_battle_site.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DB_NAME = config('DB_NAME')
-DB_USER = config('DB_USER')
-DB_PASSWORD = config('DB_PASSWORD')
-DB_HOST = config('DB_HOST')
-DB_PORT = config('DB_PORT')
+# Postgre
+# DB_NAME = config('DB_NAME')
+# DB_USER = config('DB_USER')
+# DB_PASSWORD = config('DB_PASSWORD')
+# DB_HOST = config('DB_HOST')
+# DB_PORT = config('DB_PORT')
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': DB_NAME,
+#         'USER': DB_USER,
+#         'PASSWORD': DB_PASSWORD,
+#         'HOST': DB_HOST,
+#         'PORT': DB_PORT
+#     }
+# }
+# SQLite
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': DB_NAME,
-        'USER': DB_USER,
-        'PASSWORD': DB_PASSWORD,
-        'HOST': DB_HOST,
-        'PORT': DB_PORT
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': Path.joinpath(BASE_DIR, 'database', 'faith_battle.sqlite3'),
     }
 }
 
