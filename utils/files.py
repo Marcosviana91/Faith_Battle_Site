@@ -12,9 +12,9 @@ def getAvatarFileList(show_all = False):
     AVATAR_DIR = os.path.join(STATICFILES_DIRS[0], "general", "img", "Avatar")
     all_avatar = os.listdir(AVATAR_DIR)
     if show_all:
-        return all_avatar
+        return sorted(all_avatar)
     public_avatar = []
     for _avatar in all_avatar:
         if not _avatar.startswith('_'):
             public_avatar.append(_avatar)
-    return public_avatar
+    return sorted(public_avatar)

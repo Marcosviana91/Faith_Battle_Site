@@ -111,7 +111,7 @@ def getImages(request: HttpRequest):
     user_media_url = os.path.join(os.path.basename(
         MEDIA_ROOT), "users_images", user_id)
 
-    all_images = os.listdir(user_media_dir)
+    all_images = sorted(os.listdir(user_media_dir))
     user_dir_size = 0
     for img in all_images:
         img_size = os.path.getsize(os.path.join(user_media_dir, img))

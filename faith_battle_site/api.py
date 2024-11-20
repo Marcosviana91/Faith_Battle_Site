@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from django.http import HttpResponseForbidden, HttpResponseBadRequest
+from django.http import HttpResponseForbidden, HttpResponseBadRequest, HttpRequest
 
 from ninja import NinjaAPI
 
@@ -103,8 +103,8 @@ def stats(request, user_id: int):
 
 
 @api.get("/avatar_list")
-def stats(request):
-    return {'avatar_list': getAvatarFileList()}
+def stats(request:HttpRequest):
+    return {'avatar_list': getAvatarFileList(show_all=request.user.is_staff)}
 
 
 @api.post("/auth")

@@ -27,20 +27,20 @@ Faith Battle - Minhas Imagens
         <span>{{user_dir_size}}/{{MAX_DIR_SIZE_IM_MB}}MB</span>
     </div>
     <label class="mb-2 w-100">
-        <span>Filtar: </span>
+        <span>Filtrar: </span>
         <input type="text" class="form-control" placeholder="Filtar por nome">
     </label>
     <div id="images_info_container" class="d-flex flex-wrap gap-2">
         <div id="images_info" data-images_info="{{images_info}}" hidden></div>
         {% for image in all_images %}
         <div class="imagem_container p-1" data-bs-toggle="modal" data-bs-target="#cardModal">
-            <img src="../../{{user_media_url}}/{{image}}">
+            <img src="\{{user_media_url}}\{{image}}" data-src="\{{user_media_url}}\{{image}}">
             <div id="image_name" class="text-center fw-bold bg-white bg-opacity-50">{{image}}</div>
             <div id="image_size" class="text-center bg-white bg-opacity-50"></div>
         </div>
         {% endfor %}
     </div>
-    <!-- Modal -->
+    <!-- Card Modal -->
     <div class="modal fade" id="cardModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -57,18 +57,41 @@ Faith Battle - Minhas Imagens
                         <input type="text" id="modal_input" value="" disabled
                             class="bg-black bg-opacity-25 ps-2 w-100 me-2">
                         <button class="btn btn-outline-primary position-relative" onclick="copyInput('modal_input')">
-                            <span id="btn_copy_popover" class="position-absolute px-2 bg-white border border-1 border-black text-black rounded rounded-pill">Copiado!</span>
+                            <span id="btn_copy_popover"
+                                class="position-absolute px-2 bg-white border border-1 border-black text-black rounded rounded-pill">Copiado!</span>
                             <i class='bx bx-copy'></i>
                         </button>
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button id="btn_apagar_imagem" type="button" class="btn_link btn btn-danger" data-link="">Apagar Imagem</button>
+                    <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        Apagar
+                        Imagem
+                    </button>
+
                     <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
     </div>
 </section>
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteModalLabel">Deseja mesmo apagar?</h1>
+            </div>
+            <div class="modal-body row justify-content-around">
+                <p>Esta ação é irreversível...</p>
+            </div>
+            <div class="modal-footer row justify-content-around">
+                <button type="button" class="btn btn-success col-5" data-bs-dismiss="modal">Não</button>
+                <button id="btn_apagar_imagem" type="button" class="btn_link btn btn-danger col-5" data-link="">Apagar
+                    Imagem</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="{% static 'users/js/minhas_imagens.js' %}"></script>
 {% endblock %}

@@ -1,0 +1,18 @@
+services:
+  site:
+    container_name: Site
+    build: ./
+    ports:
+      - 8000:8000
+    restart: always
+    volumes:
+    # Faith Battle static content
+      # - ./static:/api/static
+      - type: bind
+        source: /home/marcos/www/Faith_Battle_Site/static/
+        target: /api/static
+    # Faith Battle media content
+      # - ./media:/api/media
+      - type: bind
+        source: /home/marcos/www/Faith_Battle_Site/media/
+        target: /api/media

@@ -11,8 +11,8 @@ Editar - {{game.title}}
 {% endblock %}
 
 {% block 'body' %}
-<main>
-    <section id="dados_jogo" class="col-12 col-md-6 border-bottom pb-3 mb-3 border-secondary">
+<main class="row d-flex justify-content-center">
+    <section id="dados_jogo" class="col-12 col-md-9 border-bottom pb-3 mb-3 border-secondary">
         <span class="d-flex align-items-baseline justify-content-between">
             <h3>{{game.title}}</h3>
             <p>adicionado por <a href="https://marcosvianadev.com.br/" target="_blank">{{game.created_by}}</a> </p>
@@ -72,7 +72,9 @@ Editar - {{game.title}}
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapse{{deck}}" aria-expanded="true" aria-controls="collapse{{deck}}">
+                        data-bs-target="#collapse{{deck}}" aria-expanded="true" aria-controls="collapse{{deck}}"
+                        data-deck-name="{{deck}}" onclick="setDeck(this)"
+                        data-deck-url="{% url 'editar_cartas' deck.id %}" data-deck-img="{{deck.card_back_image.url}}">
                         {{deck}}
                     </button>
                 </h2>
@@ -80,9 +82,16 @@ Editar - {{game.title}}
                     <div class="accordion-body row">
                         <img class="col-3" src="{{deck.card_back_image.url}}">
                         <strong class="col-9">{{deck.short_description}}</strong>
-                        <a href="{% url 'ver_cartas' deck.id %}" class="btn btn-sm btn-primary col-3 mt-2"
-                            target="verCartas" data-bs-toggle="modal" data-bs-target="#showCardFamilyModal" data-deck-name="{{deck}}"
-                            onclick="setIframeSrc(this)">Ver cartas</a>
+                        <div class="d-flex flex-row column-gap-2">
+                            <a class="btn btn-sm btn-primary col-6 mt-2" target="verCartas" data-bs-toggle="modal"
+                                data-bs-target="#showCardFamilyModal">Editar
+                                cartas</a>
+                            <button type="button" class="btn btn-sm btn-primary col-6 mt-2" data-bs-toggle="modal"
+                                data-bs-target="#positionCardModal">
+                                Posicionar no Tabuleiro
+                            </button>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -145,6 +154,9 @@ Editar - {{game.title}}
                 <h1 class="modal-title fs-5" id="addPlaytmatModalLabel">Novo Playmat</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <span class="px-2 text-center">As imagens do playmat devem ter a mesma disposição das pilhas de cartas para
+                compra. Mudando apenas o fundo e elementos que não estão ligados ao posicionamento fixo das pilhas de
+                cartas.</span>
             <div class="modal-body">
                 <form class="form" action="{% url 'novo_playmat' %}" method="post" enctype="multipart/form-data">
                     {%csrf_token%}
@@ -156,14 +168,91 @@ Editar - {{game.title}}
                     </label>
                     <label class="d-flex flex-column">
                         Playmat:
-                        <input class="imageUploadResizer form-control border border-1 border-primary" type="file" accept="image/*"
-                            name="image" id="playmat_image" required>
+                        <input class="imageUploadResizer form-control border border-1 border-primary" type="file"
+                            accept="image/*" name="image" id="playmat_image" required>
                     </label>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-primary">Adicionar Playmat</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal addDeckModal -->
+<div class="modal fade" id="addDeckModal" tabindex="-1" aria-labelledby="addDeckModalLabel" aria-hidden="true"
+    data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-light">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="addDeckModalLabel">Novo Tipo de Baralho</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="form" action="{% url 'novo_deck' %}" method="post" enctype="multipart/form-data">
+                    {%csrf_token%}
+                    <input type="hidden" name="game" value="{{game.id}}">
+                    <label class="d-flex flex-column">
+                        Nome do Baralho:
+                        <input class="form-control border border-1 border-primary" type="text" name="title"
+                            id="deck_name" maxlength="25" required>
+                    </label>
+                    <label class="d-flex flex-column">
+                        Imagem do verso:
+                        <input class="imageUploadResizer form-control border border-1 border-primary" type="file"
+                            accept="image/*" name="card_back_image" id="deck_image" required>
+                    </label>
+                    <label class="d-flex flex-column">
+                        Breve descrição:
+                        <textarea name="short_description" id="short_description"
+                            class="form-control border border-1 border-primary" required></textarea>
+                    </label>
+                    <div class="mt-3 text-center">Adicione descrição curta (30 caracteres) para cada valor dos cantos da
+                        carta, deixe vazio caso não use. Estes valores estarão descritos na página do jogo.</div>
+                    <div id="fake_card_container" class="position-relative  border border-1 border-primary rounded-1">
+                        <img id="fake_card" src="{% static '/games/img/generic_card_verso.jpg' %}"
+                            alt="Verso de uma carta">
+                        <input class="form-control border border-1 border-primary rounded-1" id="top_left_txt"
+                            type="text" name="top_left_txt" placeholder="Custo de Invocação">
+                        <input class="form-control border border-1 border-primary rounded-1" id="top_right_txt"
+                            type="text" name="top_right_txt" placeholder="Pontos de Vida">
+                        <input class="form-control border border-1 border-primary rounded-1" id="bottom_left_txt"
+                            type="text" name="bottom_left_txt" placeholder="Pontos de Defesa">
+                        <input class="form-control border border-1 border-primary rounded-1" id="bottom_right_txt"
+                            type="text" name="bottom_right_txt" placeholder="Pontos de Ataque">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Adicionar Tipo Baralho</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal positionCardModal -->
+<div class="modal fade" id="positionCardModal" tabindex="-1" aria-labelledby="positionCardModalLabel" aria-hidden="true"
+    data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-light">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="positionCardModalLabel">Posicione a Pilha no Tabuleiro</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <span>Posicione a pilha <strong></strong> no tabuleiro.</span>
+                <div id="fake_tabuleiro_container" class="position-relative border border-1 border-primary rounded-1">
+                    <img id="fake_tabuleiro" src="" alt="">
+                    <div id="mydiv">
+                        <img id="mydivheader" src="{% static '/games/img/generic_card_verso.jpg' %}"
+                            alt="Verso de uma carta">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="salvarPosicao()">Salvar Posição</button>
+                </div>
             </div>
         </div>
     </div>

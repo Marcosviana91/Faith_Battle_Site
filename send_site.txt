@@ -1,0 +1,5 @@
+# Enviar para o servidor LOCAL
+scp -r -P 22 ./Faith_Battle_Site/* marcos@192.168.1.31:/home/marcos/dockers/Faith_Battle_Site
+
+# Enviar para o servidor REMOTO
+scp -r -P 22 ./Faith_Battle_Site/* root@191.252.200.137:/home/marcos/www/Faith_Battle_Site

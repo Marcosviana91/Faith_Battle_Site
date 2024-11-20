@@ -1,3 +1,11 @@
 #artigo_img_capa {
     max-height: 35vh;
 }
+
+.note-float-left {
+    margin-right: 16px;
+}
+
+.note-float-right {
+    margin-left: 16px;
+}

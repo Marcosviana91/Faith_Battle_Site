@@ -30,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # DEBUG = True
 
 ALLOWED_HOSTS = ['localhost','localhost:3180', '*']
-CSRF_TRUSTED_ORIGINS = ['http://localhost','http://localhost:3180']
+CSRF_TRUSTED_ORIGINS = ['https://faith-battle.marcosvianadev.com.br:3143', 'https://192.168.1.31:3143']
 
 
 # Application definition

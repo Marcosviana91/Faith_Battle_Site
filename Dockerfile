@@ -8,9 +8,8 @@ RUN rm -rf .venv
 RUN python -m pip install -r requirements.txt
 
 # Start Django configuration
-# This is not running
-# RUN python3 manage.py collectstati
+# RUN python manage.py collectstatic
 
-CMD [ "gunicorn", "faith_battle_site.asgi:application", "-k", "uvicorn_worker.UvicornWorker", "-b", "0.0.0.0:3111" ]
-EXPOSE 3111
+# gunicorn faith_battle_site.asgi:application -k uvicorn_worker.UvicornWorker -b 0.0.0.0:8000
+CMD [ "gunicorn", "faith_battle_site.asgi:application", "-k", "uvicorn_worker.UvicornWorker", "-b", "0.0.0.0:8000" ]
 

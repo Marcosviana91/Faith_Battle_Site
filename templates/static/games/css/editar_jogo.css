@@ -1,4 +1,73 @@
 .playmat_image {
     width: 250px;
+    height: 190px;
     cursor: pointer;
+}
+
+#fake_card_container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 150px;
+}
+
+#fake_card_container input {
+    width: 125px;
+    font-size: 10pt;
+}
+
+#fake_card {
+    width: 100px;
+    height: 150px;
+}
+
+#top_left_txt {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+}
+
+#top_right_txt {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+
+#bottom_left_txt {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+}
+
+#bottom_right_txt {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+}
+
+#fake_tabuleiro_container {
+    width: 550px;
+    height: 450px;
+    scale: 0.7;
+    transform: translateX(-20%);
+}
+
+#fake_tabuleiro_container>#fake_tabuleiro {
+    height: 100%;
+    width: 100%;
+}
+
+#mydiv {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 9;
+}
+
+#fake_tabuleiro_container>div>#mydivheader {
+    height: 60px;
+    width: 43px;
+    cursor: grab;
+    z-index: 10;
+    scale: 1.3;
 }

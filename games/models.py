@@ -46,7 +46,7 @@ class CardFamily(models.Model):
     short_description = models.CharField(
         max_length=255, blank=False, null=False)
     card_back_image = models.ImageField(
-        upload_to="cards", null=True, blank=True)
+        null=True, blank=True)
 
     top_left_txt = models.CharField(
         max_length=30, default='', blank=True, null=True)
@@ -56,7 +56,7 @@ class CardFamily(models.Model):
         max_length=30, default='', blank=True, null=True)
     bottom_right_txt = models.CharField(
         max_length=30, default='', blank=True, null=True)
-    
+
     deck_position_X = models.IntegerField(blank=True, null=True)
     deck_position_Y = models.IntegerField(blank=True, null=True)
 
@@ -65,13 +65,14 @@ class CardFamily(models.Model):
 
     def save(self):
         img_file_type = self.card_back_image.name[-3:]
-        self.game.title
-        self.card_back_image.name = f'{self.game.title.lower().replace(" ", "_")}_{self.title.lower().replace(" ", "_")}.{
+        self.card_back_image.name = f'cards/{self.game.title.lower().replace(" ", "_")}_{self.title.lower().replace(" ", "_")}.{
             img_file_type}'
+        # self.card_back_image.url.split("/")[2]
         super().save()
 
+
 def getCardFamilyByGame(game):
-    card_family_list = CardFamily.objects.filter(game = game)
+    card_family_list = CardFamily.objects.filter(game=game)
     return {i: i.split('.')[0] for i in card_family_list}
 
 

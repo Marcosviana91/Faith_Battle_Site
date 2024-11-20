@@ -6,14 +6,22 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Marcos Viana">
+    <meta name="description" content="Projeto Faith Battle - Por Marcos Viana">
+    <meta property="og:image" content="{% static 'icon.png' %}">
+    <meta property="og:description" content="Projeto Faith Battle - Por Marcos Viana">
+    <meta property="og:title" content="Faith Battle - Fã Page">
+
     <link rel="icon" type="imagem/png" href="{% static 'icon.png' %}" />
 
-    <link rel="stylesheet" href="{% static 'general/css/base.css' %}">
+    <link rel="stylesheet" href="{% static '/general/css/base.css' %}">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="{% static 'libs/bootstrap/css_bootstrap.min.v5.3.0.css' %}"> -->
-    <script src="{% static 'libs/jquery/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static '/libs/jquery/jquery-3.7.1.min.js' %}"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> -->
     <script src="{% static '/libs/jquery/jquery-image-upload-resizer.js' %}"></script>
 
     {% block 'head' %}{% endblock %}
@@ -69,8 +77,7 @@
                     </button>
                 </li>
                 <li class="nav-item">
-                    <button class="nav-link rounded-1 bg-dark {{jogos}} btn_link"
-                        data-link="{% url 'player_site' %}">
+                    <button class="nav-link rounded-1 bg-dark {{jogos}} btn_link" data-link="{% url 'player_site' %}">
                         <i class='bx bx-joystick-alt'></i>
                         <span>Jogos</span>
                     </button>
@@ -95,7 +102,7 @@
     {% endblock %}
     <!-- Staff Menu -->
     {% if logged_user.is_staff %}
-    <nav id="staff_menu" class="bg-dark bg-opacity-75 p-2 ">
+    <nav id="staff_menu" class="bg-dark bg-opacity-75 p-2 z-3">
         <span id="btn_staff_menu" class="btn btn-dark">
             <i class='bx bxs-arrow-from-left'></i>
         </span>
@@ -118,14 +125,13 @@
         </div>
     </nav>
     {% endif %}
-    <div id="footer_placeholder">
-    </div>
     <!-- TODO: adicionar toast de confirmação ou erro -->
     <!-- Button to move to up -->
     <div id="btn_go_up">
         <i class='bx bxs-chevron-up-circle'></i>
     </div>
-
+    <div id="footer_placeholder">
+    </div>
     <footer class="bg-black bg-opacity-75">
         <p class="text-center text-light">
             <a href="https://marcosvianadev.com.br/" target="_blank">
@@ -134,12 +140,10 @@
         </p>
     </footer>
     <!-- <script src="{% static 'libs/bootstrap/bootstrap.bundle.min.js' %}"></script> -->
-    <!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-    <script src="{% static 'general/js/base.js' %}"></script>
+    <script src="{% static '/general/js/base.js' %}"></script>
 </body>
 
 </html>

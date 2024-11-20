@@ -16,6 +16,7 @@ body>header {
 #nav_mobile {
     position: fixed;
     top: 8px;
+    z-index: 9999;
 }
 
 #nav_mobile {
@@ -32,6 +33,7 @@ body nav ul li {
     right: -48px;
     top: 50%;
     opacity: 0.5;
+    z-index: 9999;
 }
 
 #btn_staff_menu.open {

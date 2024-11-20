@@ -1,7 +1,0 @@
-form {
-    height: calc(100% - 80px);
-}
-
-form>div {
-    margin-top: 16px;
-}

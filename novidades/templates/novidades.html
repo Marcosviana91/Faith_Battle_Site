@@ -84,7 +84,7 @@ Faith Battle - Novidades
         <div class="d-flex flex-column gap-1 align-items-end">
             {% for artigo in todos_artigos %}
             <!-- Mini CARD -->
-            <div id="artigo_container_mini" class="btn_link" data-link="{% url 'artigo' artigo.id %}">
+            <div id="artigo_container_mini" class="btn_link artigo_container_mini" data-link="{% url 'artigo' artigo.id %}">
                 <h5 class="text-center">
                     {{artigo.titulo}}
                 </h5>

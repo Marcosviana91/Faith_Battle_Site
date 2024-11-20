@@ -1,3 +1,6 @@
+var staff_menu_is_open = false;
+var nav_isopen = false
+
 // thanks https://gist.github.com/dragermrb/6d4b7fda5f183524d0ebe4b0a7d8635c
 $('.imageUploadResizer').imageUploadResizer({
     max_width: 1281, // Defaults 1000
@@ -11,12 +14,15 @@ $('.btn_link').on('click', function () {
     window.location.href = this.dataset['link'];
 });
 
-var nav_isopen = false
-
-$('#btn_menu').on('click', function () {
+function toggleNavMenu() {
+    if (staff_menu_is_open) {
+        toggleStaffMenu()
+    }
     $(nav_mobile).slideToggle('fast');
     nav_isopen = !nav_isopen
-});
+}
+
+$('#btn_menu').on('click', toggleNavMenu );
 
 var top_position = $(document).scrollTop()
 $(document).on('scroll', function (e) {
@@ -45,13 +51,11 @@ $(btn_go_up).on("click", function () {
 const FPS = 60
 const WIDTH = 300
 
-var staff_menu_is_open = false;
-
-
-$('#btn_staff_menu').on("click", function () {
-    console.log("staff_menu_is_open", staff_menu_is_open);
+function toggleStaffMenu(){
+    if (nav_isopen) {
+        toggleNavMenu()
+    }
     var positionX = !staff_menu_is_open ? -WIDTH : 0;
-    console.log("positionX", positionX);
 
     const slide_left = setInterval(function () {
         $('#staff_menu')[0].style.left = positionX + "px";
@@ -78,6 +82,8 @@ $('#btn_staff_menu').on("click", function () {
             }
         }
     }, 1000 / FPS)
-})
+}
+
+$('#btn_staff_menu').on("click", toggleStaffMenu )
 
 

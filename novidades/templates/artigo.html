@@ -11,65 +11,47 @@ Faith Battle - {{artigo.titulo}}
 {% endblock%}
 
 {% block 'body' %}
-<div class="d-flex">
-    <main id="novidades" class="col-12 col-sm-9">
+<main id="novidades" class="col-12 d-flex justify-content-center">
+    <div class="col-12 col-sm-9">
+        <nav class="d-flex flex-row w-100 mb-2 column-gap-2">
+            <!-- Artigo Anterior -->
+            {% if artigo_anterior %}
+            <button class="btn_link d-flex align-items-center justify-content-start btn btn-primary col-6"
+                data-link="{% url 'artigo' artigo_anterior.id %}">
+                <i class='bx bx-chevrons-left'></i>
+                <span class="w-100">
+                    {{artigo_anterior.titulo}}
+                </span>
+            </button>
+            {% else %}
+            <button disabled class="btn btn-primary col-6">
+                <i class='bx bx-chevrons-left'></i>
+                Não há artigo anterior
+            </button>
+            {% endif %}
+            <!-- Artigo Posterior -->
+            {% if proximo_artigo %}
+            <button class="btn_link d-flex align-items-center justify-content-end btn btn-primary col-6"
+                data-link="{% url 'artigo' proximo_artigo.id %}">
+                <span class="w-100">
+                    {{proximo_artigo.titulo}}
+
+                </span>
+                <i class='bx bx-chevrons-right'></i>
+            </button>
+            {% else %}
+            <button disabled class="btn btn-primary col-6">
+                <i class='bx bx-chevrons-right'></i>
+                Não há próximo artigo
+            </button>
+            {% endif %}
+        </nav>
         <article>
-            <div class="d-flex justify-content-between d-sm-block">
-                <!-- Artigo Anterior -->
-                {% if artigo_anterior %}
-                <button class="btn btn-primary btn_link d-sm-none" data-link="{% url 'artigo' artigo_anterior.id %}">
-                    <i class='bx bx-chevrons-left'></i>
-                </button>
-                {% else %}
-                <button disabled class="btn btn-primary d-sm-none">
-                    <i class='bx bx-chevrons-left'></i>
-                </button>
-                {% endif %}
-                <h1 class="text-center">{{artigo.titulo}}</h1>
-                <!-- Artigo Posterior -->
-                {% if proximo_artigo %}
-                <button class="btn btn-primary btn_link d-sm-none" data-link="{% url 'artigo' proximo_artigo.id %}">
-                    <i class='bx bx-chevrons-right'></i>
-                </button>
-                {% else %}
-                <button disabled class="btn btn-primary d-sm-none">
-                    <i class='bx bx-chevrons-right'></i>
-                </button>
-                {% endif %}
-            </div>
             <img id="artigo_img_capa" src="{{ artigo.img_capa.url}}" alt="" class="col-12">
             <div id="django_content" hidden>{{artigo.conteudo}}</div>
             <div id="html_content"></div>
-
         </article>
-    </main>
-    <aside class="d-none d-sm-block col-3 d-flex flex-column ms-2 p-2">
-        <!-- Artigo Anterior -->
-        {% if artigo_anterior %}
-        <button class="btn btn-primary w-100 overflow-hidden btn_link"
-            data-link="{% url 'artigo' artigo_anterior.id %}">
-            <i class='bx bx-chevrons-left'></i>
-            Anterior: {{artigo_anterior.titulo}}
-        </button>
-        {% else %}
-        <button disabled class="btn btn-primary w-100">
-            <i class='bx bx-chevrons-left'></i>
-            Não há artigo anterior
-        </button>
-        {% endif %}
-        <!-- Artigo Posterior -->
-        {% if proximo_artigo %}
-        <button class="btn btn-primary w-100 overflow-hidden btn_link" data-link="{% url 'artigo' proximo_artigo.id %}">
-            <i class='bx bx-chevrons-right'></i>
-            Próximo: {{proximo_artigo.titulo}}
-        </button>
-        {% else %}
-        <button disabled class="btn btn-primary w-100">
-            <i class='bx bx-chevrons-right'></i>
-            Não há próximo artigo
-        </button>
-        {% endif %}
-    </aside>
-</div>
+    </div>
+</main>
 <script src="{% static 'novidades/js/artigo.js' %}"></script>
 {% endblock %}
