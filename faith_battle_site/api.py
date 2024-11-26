@@ -18,12 +18,18 @@ api = NinjaAPI()
 
 @api.get("/")
 def stats(request):
+    # TODO: retornar dados do servidor em geral, como versão, etc.
     # active_cards = Card.objects.filter(is_active=True).order_by("slug")
     # active_cards_ = list(map(lambda x: x.slug, active_cards))
     return {
         # 'active_cards': active_cards_,
         'avatar_list': getAvatarFileList(),
     }
+
+
+@api.get("/avatar_list")
+def avatarList(request: HttpRequest):
+    return {'avatar_list': getAvatarFileList(show_all=request.user.is_staff)}
 
 
 @api.get("/games")
@@ -48,7 +54,7 @@ def getCardsbyFamily(card_family_id: int):
 
 
 @api.get("/games/{game_id}")
-def game_details(request, game_id: int):
+def gameDetails(request, game_id: int):
     game = Game.objects.get(id=game_id)
     gameBoard = GameBoard.objects.filter(game=game)
     deckType = CardFamily.objects.filter(game=game)
@@ -85,10 +91,11 @@ def createUser(request, new_user: NewUser):
         avatar=new_user.avatar
     )
     new_player.save()
+    # TODO: Retornar mensagem de Sucesso
 
 
 @api.get("/user/{user_id}")
-def stats(request, user_id: int):
+def userData(request, user_id: int):
     user_data = User.objects.filter(id=user_id).values(
         'id', 'last_login', 'username', 'email', 'first_name')[0]
     player_data = Jogador.objects.get(user=user_data['id'])
@@ -102,17 +109,14 @@ def stats(request, user_id: int):
     return user_data
 
 
-@api.get("/avatar_list")
-def stats(request:HttpRequest):
-    return {'avatar_list': getAvatarFileList(show_all=request.user.is_staff)}
-
-
 @api.post("/auth")
 def auth(request, user: AuthUser):
     _user = User.objects.filter(username=user.username).first()
     if _user is None:
+        # TODO: retornar mensagem personalizada para cada ocorrencia
         return HttpResponseBadRequest('username not founded')
     if _user.is_active == False:
+        # TODO: retornar mensagem personalizada para cada ocorrencia
         return HttpResponseForbidden('user deactivated')
     authenticated_user = authenticate(
         username=user.username, password=user.password)
@@ -125,4 +129,5 @@ def auth(request, user: AuthUser):
             'id': authenticated_user.id,
             'access_token': access_token
         }
+    # TODO: retornar mensagem personalizada para cada ocorrencia
     return HttpResponseForbidden('username and password do not match')

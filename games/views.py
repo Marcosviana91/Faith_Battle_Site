@@ -93,7 +93,6 @@ def novoDeck(request: HttpRequest):
         bottom_left_txt = request.POST.get('bottom_left_txt')
         bottom_right_txt = request.POST.get('bottom_right_txt')
         if CardFamily.objects.filter(game=game).filter(title=title).exists():
-            # TODO: Retorno de nome já existente para este jogo
             print('nome já existente para este jogo')
             return HttpResponseRedirect(reverse('editar_jogo', args=[game.id]))
         card_family = CardFamily(

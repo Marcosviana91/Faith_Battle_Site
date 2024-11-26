@@ -80,7 +80,6 @@ class Card(models.Model):
     id = models.AutoField(primary_key=True)
     game = models.ForeignKey(
         Game, null=True, blank=False, on_delete=models.CASCADE)
-    # TODO criar choice getCardFamilyByGame
     card_family = models.ForeignKey(
         CardFamily, null=True, blank=False, on_delete=models.CASCADE)
 
