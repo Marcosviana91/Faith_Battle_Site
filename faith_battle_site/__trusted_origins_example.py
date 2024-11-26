@@ -1,5 +1,5 @@
 CSRF_TRUSTED_ORIGINS = [
-    'DOMAINS_1',
-    'DOMAINS_2',
-    'DOMAINS_3',
+    'localhost',
+    '127.0.0.1',
+    'seu_dominio',
     ]
