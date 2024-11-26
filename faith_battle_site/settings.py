@@ -29,8 +29,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','localhost:3180', '*']
-CSRF_TRUSTED_ORIGINS = ['https://faith-battle.marcosvianadev.com.br:3143', 'https://192.168.1.31:3143']
+from faith_battle_site.__trusted_origins import CSRF_TRUSTED_ORIGINS
+ALLOWED_HOSTS = ['localhost', *CSRF_TRUSTED_ORIGINS]
 
 
 # Application definition

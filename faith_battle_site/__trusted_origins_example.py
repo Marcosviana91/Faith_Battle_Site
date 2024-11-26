@@ -1,0 +1,5 @@
+CSRF_TRUSTED_ORIGINS = [
+    'DOMAINS_1',
+    'DOMAINS_2',
+    'DOMAINS_3',
+    ]

@@ -6,3 +6,4 @@ node_modules
 static
 backups
 database
+faith_battle_site/__trusted_origins.py

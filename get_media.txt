@@ -1,3 +1,2 @@
-# Enviar para o servidor LOCAL
-
+# Receber do servidor LOCAL
 scp -r -P 22 marcos@192.168.1.31:/home/marcos/www/Faith_Battle_Site/media/* ./Faith_Battle_Site/media
