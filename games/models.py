@@ -91,10 +91,10 @@ class Card(models.Model):
     #     max_length=25, choices=ChoicesTipoCarta, default="hero")
     # session = models.CharField(max_length=25, choices=ChoicesSession)
 
-    top_left_value = models.IntegerField(default=0)
-    top_right_value = models.IntegerField(default=0)
-    bottom_left_value = models.IntegerField(default=0)
-    bottom_right_value = models.IntegerField(default=0)
+    top_left_value = models.IntegerField(default=0, null=True)
+    top_right_value = models.IntegerField(default=0, null=True)
+    bottom_left_value = models.IntegerField(default=0, null=True)
+    bottom_right_value = models.IntegerField(default=0, null=True)
 
     card_image = models.ImageField(upload_to="cards", null=True, blank=True)
     card_image_mini = models.ImageField(

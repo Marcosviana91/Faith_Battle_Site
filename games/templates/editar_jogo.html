@@ -110,7 +110,7 @@ Editar - {{game.title}}
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
         <div class="modal-content bg-light">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="showCardFamilyModalLabel">asdasd</h1>
+                <h1 class="modal-title fs-5" id="showCardFamilyModalLabel"></h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -193,6 +193,7 @@ Editar - {{game.title}}
                 <form class="form" action="{% url 'novo_deck' %}" method="post" enctype="multipart/form-data">
                     {%csrf_token%}
                     <input type="hidden" name="game" value="{{game.id}}">
+                    <!-- TODO: Nome do baralho não pode conter espaços, pois será usado como ID de outros elementos HTML -->
                     <label class="d-flex flex-column">
                         Nome do Baralho:
                         <input class="form-control border border-1 border-primary" type="text" name="title"
