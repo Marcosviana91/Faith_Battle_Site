@@ -15,6 +15,7 @@ Editar - {{game.title}}
     <section id="dados_jogo" class="col-12 col-md-9 border-bottom pb-3 mb-3 border-secondary">
         <span class="d-flex align-items-baseline justify-content-between">
             <h3>{{game.title}}</h3>
+            <!-- TODO: adicionar link para página do usuário -->
             <p>adicionado por <a href="https://marcosvianadev.com.br/" target="_blank">{{game.created_by}}</a> </p>
         </span>
         <div class="row">
@@ -73,7 +74,7 @@ Editar - {{game.title}}
                 <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapse{{deck}}" aria-expanded="true" aria-controls="collapse{{deck}}"
-                        data-deck-name="{{deck}}" onclick="setDeck(this)"
+                        data-deck-name="{{deck}}" data-deck-position="{{deck.deck_position_X}},{{deck.deck_position_Y}}" onclick="setDeck(this)"
                         data-deck-url="{% url 'editar_cartas' deck.id %}" data-deck-img="{{deck.card_back_image.url}}">
                         {{deck}}
                     </button>

@@ -18,6 +18,7 @@ for (let carousel_item of $('#carouselPalymat .carousel-item')) {
 }
 
 function setDeck(btn_src) {
+    pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0
     console.log(btn_src.dataset)
     $('#showCardFamilyModalLabel')[0].innerText = btn_src.dataset['deckName']
     $('#positionCardModal .modal-body span strong')[0].innerText = btn_src.dataset['deckName']
@@ -25,15 +26,19 @@ function setDeck(btn_src) {
     
     $('#fake_tabuleiro')[0].src = $('.carousel-item.active img.playmat_image')[0].src
     $('#verCartas')[0].src = btn_src.dataset['deckUrl']
+    $('#mydivheader')[0].src = btn_src.dataset['deckImg']
+    $('#mydivheader')[0].src = btn_src.dataset['deckImg']
+    document.getElementById('mydiv').style.left =  Number(btn_src.dataset['deckPosition'].split(',')[0])+'px'
+    document.getElementById('mydiv').style.bottom = Number(btn_src.dataset['deckPosition'].split(',')[1])+'px'
 }
 
 
 // Thanks: https://www.w3schools.com/howto/howto_js_draggable.asp
 // Make the DIV element draggable:
 dragElement(document.getElementById("mydiv"));
+var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
 function dragElement(elmnt) {
-    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     if (document.getElementById(elmnt.id + "header")) {
         // if present, the header is where you move the DIV from:
         document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
@@ -88,5 +93,10 @@ function salvarPosicao() {
     fetch("/games/deck_position", {
         method: "POST",
         body: form
-    })
+    }).then(
+        (response) => {
+            window.location.reload()
+
+        }
+    )
 }
