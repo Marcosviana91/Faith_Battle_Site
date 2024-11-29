@@ -8,4 +8,5 @@ class UploadFileForm(forms.Form):
         # for field in self.fields:
         #     print(field)
         self.fields['imagem'].widget.attrs.update({'class':'imageUploadResizer form-control'})
-        self.fields['imagem'].label = 'Enviar Imagem'
+        self.fields['imagem'].widget.attrs.update({'accept':'.png, .gif, .jpg'})
+        self.fields['imagem'].label = 'Enviar Imagem (png, gif, jpg)'

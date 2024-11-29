@@ -32,18 +32,26 @@ for (let element = 0; element < imagem_container.length; element++) {
 
 // Filtro
 var filtro = ''
+var filter_extension = ''
 
-$('input').on('input', function (e) {
-    e.preventDefault();
-    filtro = String(e.target.value).toLowerCase()
+
+function applyFilter() {
+    filtro = $('#filter_string')[0].value.toLowerCase()
+    filter_extension = $('#filter_extension')[0].value
     const minhas_imagens = Array(...$('.imagem_container'))
     minhas_imagens.forEach((imagem) => {
         if (imagem.children[1].innerText.toLowerCase().includes(filtro)) {
-            // imagem.classList.remove("d-none");
-            $(imagem).slideDown();
+            if (filter_extension !== '' && filter_extension !== "all") {
+                if (imagem.children[1].innerText.toLowerCase().endsWith(filter_extension)) {
+                    $(imagem).slideDown();
+                } else {
+                    $(imagem).fadeOut();
+                }
+            } else {
+                $(imagem).slideDown();
+            }
         } else {
             $(imagem).fadeOut();
-            // imagem.classList.add("d-none");
         }
     })
-});
+}

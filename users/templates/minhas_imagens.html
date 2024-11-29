@@ -28,14 +28,22 @@ Faith Battle - Minhas Imagens
     </div>
     <label class="mb-2 w-100">
         <span>Filtrar: </span>
-        <input type="text" class="form-control" placeholder="Filtar por nome">
+        <div class="d-flex form-control">
+            <input id="filter_string" oninput="applyFilter()" type="text" class="form-control" placeholder="Filtar por nome">
+            <select id="filter_extension" onchange="applyFilter()" class="border border-1 border-primary">
+                <option value="all">Todos</option>
+                <option value=".png">.png</option>
+                <option value=".jpg">.jpg</option>
+                <option value=".gif">.gif</option>
+            </select>
+        </div>
     </label>
-    <div id="images_info_container" class="d-flex flex-wrap gap-2">
+    <div id="images_info_container" class="d-flex flex-wrap gap-2 justify-content-evenly">
         <div id="images_info" data-images_info="{{images_info}}" hidden></div>
         {% for image in all_images %}
         <div class="imagem_container p-1" data-bs-toggle="modal" data-bs-target="#cardModal">
             <img src="\{{user_media_url}}\{{image}}" data-src="\{{user_media_url}}\{{image}}">
-            <div id="image_name" class="text-center fw-bold bg-white bg-opacity-50">{{image}}</div>
+            <div id="image_name" class="text-center fw-bold bg-white bg-opacity-50 overflow-hidden">{{image}}</div>
             <div id="image_size" class="text-center bg-white bg-opacity-50"></div>
         </div>
         {% endfor %}
