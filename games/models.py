@@ -11,6 +11,7 @@ class Game(models.Model):
     title = models.CharField(max_length=255, blank=False, null=False)
     description = models.TextField(default='')
     image = models.ImageField(upload_to="games", null=True, blank=True)
+    # packageTimeStamp = models.CharField(max_length=150)
 
     def __str__(self):
         return self.title
@@ -25,8 +26,8 @@ class Game(models.Model):
 class GameBoard(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=30, db_index=True)
-    image = models.ImageField(upload_to="game_boards", null=True, blank=True)
     game = models.ForeignKey(Game, null=True, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to="game_boards", null=True, blank=True)
 
     def __str__(self) -> str:
         return self.name

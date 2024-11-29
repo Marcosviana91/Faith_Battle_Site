@@ -10,7 +10,7 @@ from .security import createAccessToken
 
 from users.models import Jogador
 from games.models import Game, GameBoard, CardFamily, Card
-from utils.files import getAvatarFileList
+from utils.files import getAvatarFileList, gerarArquivo
 
 
 api = NinjaAPI()
@@ -40,8 +40,13 @@ def games(request):
     return {game.id: game.title for game in all_games}
 
 
-def getCardsbyFamily(card_family_id: int):
+def getCardsbyFamily(card_family_id: int, is_DLC: bool = False):
     card_list = Card.objects.filter(card_family=card_family_id)
+    if is_DLC:
+        return [
+            [f'/media/{card.card_image.name}',
+             f'/media/{card.card_image_mini.name}']
+            for card in card_list]
     return [{card.slug: {
         'card_description': card.card_description,
         'card_image': card.card_image.url,
@@ -68,7 +73,6 @@ def gameDetails(request, game_id: int):
                 'image': decktype.card_back_image.url,
                 'deck_position_X': decktype.deck_position_X,
                 'deck_position_Y': decktype.deck_position_Y,
-                'image': decktype.card_back_image.url,
                 'top_left_txt': decktype.top_left_txt,
                 'top_right_txt': decktype.top_right_txt,
                 'bottom_left_txt': decktype.bottom_left_txt,
@@ -77,6 +81,44 @@ def gameDetails(request, game_id: int):
             } for decktype in deckType},
         }
     }
+
+
+def flattenList(lista: list):
+    __temp_list = []
+    for item in lista:
+        if isinstance(item, list):
+            __temp_list.extend(flattenList(item))
+        else:
+            __temp_list.append(item)
+    return __temp_list
+
+
+@api.get("/share_game/{game_id}")
+def empacotarArquivos(request, game_id: int):
+    '''
+    Gera um dicionário estruturado com todos os arquivos para baixar.
+    Chama um função que gera um empacotamento ZIP dos arquivos do jogo indicado, para o cliente baixar.
+    '''
+    game = Game.objects.get(id=game_id)
+    gameBoard = GameBoard.objects.filter(game=game)
+    deckType = CardFamily.objects.filter(game=game)
+
+    gameboards = [gameboard.image.url for gameboard in gameBoard]
+    decktypes = [decktype.card_back_image.url for decktype in deckType]
+    cards = flattenList(
+        [getCardsbyFamily(decktype.id, is_DLC=True) for decktype in deckType]
+    )
+    game_files_list = [
+        game.image.url,
+        *gameboards,
+        *decktypes,
+        *cards
+    ]
+    file_name = game.title.lower()
+    package_data = gerarArquivo(file_name, game_files_list)
+    # game.packageTimeStamp = package_data.get('time_stamp')
+    
+    return package_data
 
 
 @api.post("/user")
