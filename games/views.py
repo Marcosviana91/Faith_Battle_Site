@@ -32,6 +32,7 @@ def novoJogo(request: HttpRequest):
         game.save()
         return HttpResponseRedirect(reverse('editar_jogo', args=[game.id]))
 
+
 @xframe_options_sameorigin
 @login_required(login_url="/users/login")
 @staff_member_required(login_url="/users/login")
@@ -83,6 +84,7 @@ def novoGameBoard(request: HttpRequest):
         gameboard.save()
         return HttpResponseRedirect(reverse('editar_jogo', args=[game.id]))
 
+
 @login_required(login_url="/users/login")
 @staff_member_required(login_url="/users/login")
 def novoDeck(request: HttpRequest):
@@ -115,6 +117,7 @@ def novoDeck(request: HttpRequest):
         card_family.save()
         return HttpResponseRedirect(reverse('editar_jogo', args=[game.id]))
 
+
 @login_required(login_url="/users/login")
 @staff_member_required(login_url="/users/login")
 def deckPosition(request: HttpRequest):
@@ -129,20 +132,21 @@ def deckPosition(request: HttpRequest):
 @xframe_options_exempt
 @login_required(login_url="/users/login")
 @staff_member_required(login_url="/users/login")
-def editarCartas(request: HttpRequest, game_family_id:int):
+def editarCartas(request: HttpRequest, game_family_id: int):
     if request.method == "GET":
         cardFamily = CardFamily.objects.get(id=game_family_id)
         cards = Card.objects.filter(card_family=cardFamily)
         return render(request, "editar_cartas.html", {
-            'cardFamily':cardFamily,
+            'cardFamily': cardFamily,
             'cards': cards,
         })
     elif request.method == "POST":
         print(request.POST)
-        
+
+
 @login_required(login_url="/users/login")
 @staff_member_required(login_url="/users/login")
-def criarCarta(request: HttpRequest, deck_id:int):
+def criarCarta(request: HttpRequest, deck_id: int):
     if request.method == "GET":
         return HttpResponseRedirect(reverse('editar_cartas', args=[deck_id]))
     elif request.method == "POST":
@@ -158,11 +162,11 @@ def criarCarta(request: HttpRequest, deck_id:int):
         # FILES
         card_image = request.FILES.get('card_image')
         card_image_mini = request.FILES.get('card_image_mini')
-        print(is_active=='on')
+        print(is_active == 'on')
         new_card = Card(
             game=cardFamily.game,
             card_family=cardFamily,
-            is_active=is_active=='on',
+            is_active=is_active == 'on',
             slug=slug,
             card_description=card_description,
             top_left_value=top_left_value,

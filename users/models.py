@@ -14,6 +14,7 @@ def getAvatarChoices():
 class Jogador(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     avatar = models.CharField(null=True, blank=True, choices=getAvatarChoices, max_length=150)
+    # profile_article = models.TimeField(null=True, blank=True, default=None)
 
     def __str__(self):
         return self.user.username
