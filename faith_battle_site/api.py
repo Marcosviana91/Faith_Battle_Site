@@ -47,7 +47,8 @@ def getCardsbyFamily(card_family_id: int, is_DLC: bool = False):
             [f'/media/{card.card_image.name}',
              f'/media/{card.card_image_mini.name}']
             for card in card_list]
-    return [{card.slug: {
+    return [{
+        'card_slug': card.slug,
         'card_description': card.card_description,
         'card_image': card.card_image.url,
         'card_image_mini': card.card_image_mini.url,
@@ -55,7 +56,7 @@ def getCardsbyFamily(card_family_id: int, is_DLC: bool = False):
         'top_right_value': card.top_right_value,
         'bottom_left_value': card.bottom_left_value,
         'bottom_right_value': card.bottom_right_value,
-    }} for card in card_list]
+    } for card in card_list]
 
 
 @api.get("/games/{game_id}")
@@ -64,22 +65,22 @@ def gameDetails(request, game_id: int):
     gameBoard = GameBoard.objects.filter(game=game)
     deckType = CardFamily.objects.filter(game=game)
     return {
-        game.title: {
-            'description': game.description,
-            'image': game.image.url,
-            'gameBoard': {gameboard.name: gameboard.image.url for gameboard in gameBoard},
-            'deckType': {decktype.id: {
-                'title': decktype.title,
-                'image': decktype.card_back_image.url,
-                'deck_position_X': decktype.deck_position_X,
-                'deck_position_Y': decktype.deck_position_Y,
-                'top_left_txt': decktype.top_left_txt,
-                'top_right_txt': decktype.top_right_txt,
-                'bottom_left_txt': decktype.bottom_left_txt,
-                'bottom_right_txt': decktype.bottom_right_txt,
-                'cards': getCardsbyFamily(decktype.id)
-            } for decktype in deckType},
-        }
+        'title': game.title,
+        'description': game.description,
+        'image': game.image.url,
+        'gameBoard': [{'name': gameboard.name, 'image': gameboard.image.url} for gameboard in gameBoard],
+        'deckType': [{
+            'id': decktype.id,
+            'title': decktype.title,
+            'image': decktype.card_back_image.url,
+            'deck_position_X': decktype.deck_position_X,
+            'deck_position_Y': decktype.deck_position_Y,
+            'top_left_txt': decktype.top_left_txt,
+            'top_right_txt': decktype.top_right_txt,
+            'bottom_left_txt': decktype.bottom_left_txt,
+            'bottom_right_txt': decktype.bottom_right_txt,
+            'cards': getCardsbyFamily(decktype.id)
+        } for decktype in deckType],
     }
 
 
@@ -114,11 +115,38 @@ def empacotarArquivos(request, game_id: int):
         *decktypes,
         *cards
     ]
-    file_name = game.title.lower()
-    package_data = gerarArquivo(file_name, game_files_list)
-    # game.packageTimeStamp = package_data.get('time_stamp')
-    
-    return package_data
+    # file_name = game.title.lower()
+    # package_data = gerarArquivo(file_name, game_files_list)
+    # # game.packageTimeStamp = package_data.get('time_stamp')
+
+    return game_files_list
+
+
+@api.get("/dlc/{game_id}")
+def listarArquivos(request, game_id: int):
+    '''
+    Gera um dicionário estruturado com todos os arquivos para baixar.
+    '''
+    game = Game.objects.get(id=game_id)
+    gameBoard = GameBoard.objects.filter(game=game)
+    deckType = CardFamily.objects.filter(game=game)
+
+    gameboards = [gameboard.image.url for gameboard in gameBoard]
+    decktypes = [decktype.card_back_image.url for decktype in deckType]
+    cards = flattenList(
+        [getCardsbyFamily(decktype.id, is_DLC=True) for decktype in deckType]
+    )
+    game_files_list = [
+        game.image.url,
+        *gameboards,
+        *decktypes,
+        *cards
+    ]
+    # file_name = game.title.lower()
+    # package_data = gerarArquivo(file_name, game_files_list)
+    # # game.packageTimeStamp = package_data.get('time_stamp')
+
+    return game_files_list
 
 
 @api.post("/user")
@@ -149,6 +177,17 @@ def userData(request, user_id: int):
             len(splited_email_adress[0])-3) + "@" + splited_email_adress[1]
         user_data["email"] = joined_email_adress
     return user_data
+
+
+# TODO pegando dados genéricos do próprio jogo, mas deve pegar dados de cada jogador
+@api.get('/player/{player_id}/{game_id}')
+def getPlayerDataByGame(request, player_id: int, game_id: int):
+    print(f'get player {player_id} data for game {game_id}')
+    game = Game.objects.get(id=game_id)
+    deckType = CardFamily.objects.filter(game=game)
+    return [[
+        decktype.title, getCardsbyFamily(decktype.id)
+    ] for decktype in deckType]
 
 
 @api.post("/auth")

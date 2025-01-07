@@ -67,7 +67,7 @@ Acesse http://127.0.0.1:8000
 
 - GET /api/games/{game_id}
 
-    Retorna retorna detalhes do jogo para serem utilizados no aplicativo, cada jogo possuirá dados distintos que serão carregados/baixados pelo app antes da partida.
+    Retorna detalhes do jogo para serem utilizados no aplicativo, cada jogo possuirá dados distintos que serão carregados/baixados pelo app antes da partida.
     > ex.: /api/games/1
     ```JSON
     {
