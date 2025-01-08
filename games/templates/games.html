@@ -6,13 +6,23 @@
 {% endblock %}
 
 {% block 'title' %}
-{{ game.title}} - Game
+Jogos
 {% endblock%}
 
 {% block 'body' %}
 <!-- TODO: Preparar página descritiva do jogo -->
 <main>
-
+    <h1>TODOS OS JOGOS</h1>
+    {% for game in games %}
+    <ul>
+        <li>
+            <a href="{{game.id}}">
+                {{game.id}}: {{game.title}}
+            </a>
+        </li>
+    </ul>
+    {% endfor %}
+    <span>em desenvolvimento</span>
 </main>
 
 {% endblock%}

@@ -33,6 +33,27 @@ def novoJogo(request: HttpRequest):
         return HttpResponseRedirect(reverse('editar_jogo', args=[game.id]))
 
 
+def todosJogos(request: HttpRequest):
+    if request.method == "GET":
+        games = Game.objects.all()
+        return render(request, "games.html", {
+            'games': games,
+        })
+
+def jogoDetalhe(request: HttpRequest, game_id: int):
+    if request.method == "GET":
+        game = Game.objects.get(id=game_id)
+        gameBoards = GameBoard.objects.filter(game=game)
+        cardFamily = CardFamily.objects.filter(game=game)
+        # print(cardFamily[0].deck_position_X)
+        return render(request, "editar_jogo.html", {
+            'logged_user': None,
+            'game': game,
+            'gameboards': gameBoards,
+            'cardfamily': cardFamily,
+        })
+
+
 @xframe_options_sameorigin
 @login_required(login_url="/users/login")
 @staff_member_required(login_url="/users/login")
@@ -41,7 +62,7 @@ def editarJogo(request: HttpRequest, game_id: int):
         game = Game.objects.get(id=game_id)
         gameBoards = GameBoard.objects.filter(game=game)
         cardFamily = CardFamily.objects.filter(game=game)
-        print(cardFamily[0].deck_position_X)
+        # print(cardFamily[0].deck_position_X)
         return render(request, "editar_jogo.html", {
             'logged_user': request.user,
             'game': game,
@@ -139,6 +160,19 @@ def editarCartas(request: HttpRequest, game_family_id: int):
         return render(request, "editar_cartas.html", {
             'cardFamily': cardFamily,
             'cards': cards,
+        })
+    elif request.method == "POST":
+        print(request.POST)
+
+@xframe_options_exempt
+def verCartas(request: HttpRequest, game_family_id: int):
+    if request.method == "GET":
+        cardFamily = CardFamily.objects.get(id=game_family_id)
+        cards = Card.objects.filter(card_family=cardFamily)
+        return render(request, "editar_cartas.html", {
+            'cardFamily': cardFamily,
+            'cards': cards,
+            'no_edit': True
         })
     elif request.method == "POST":
         print(request.POST)

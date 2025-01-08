@@ -3,7 +3,10 @@
 {% load static %}
 
 {% block 'title' %}
-Editar - {{game.title}}
+{% if logged_user %}
+Editar -
+{% endif %}
+{{game.title}}
 {% endblock %}
 
 {% block 'head'%}
@@ -26,9 +29,11 @@ Editar - {{game.title}}
     <section id="playmats" class="col-12 col-md-6">
         <span class="d-flex align-items-baseline justify-content-between mb-2">
             <h3>Playmats</h3>
-            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
-                data-bs-target="#addPlaytmatModal">adicionar
-                Playmat</button>
+            {% if logged_user %}
+            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addPlaytmatModal">
+                adicionar Playmat
+            </button>
+            {% endif %}
         </span>
 
         {% if gameboards %}
@@ -61,9 +66,11 @@ Editar - {{game.title}}
     <section id="baralhos" class="col-12 col-md-6">
         <span class="d-flex align-items-baseline justify-content-between mb-2">
             <h3>Baralhos</h3>
+            {% if logged_user %}
             <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addDeckModal">
                 adicionar tipo de baralho
             </button>
+            {% endif %}
         </span>
 
         <!-- Accordion -->
@@ -72,18 +79,30 @@ Editar - {{game.title}}
             {% for deck in cardfamily %}
             <div class="accordion-item">
                 <h2 class="accordion-header">
+                    {% if logged_user %}
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapse{{deck}}" aria-expanded="true" aria-controls="collapse{{deck}}"
-                        data-deck-name="{{deck}}" data-deck-position="{{deck.deck_position_X}},{{deck.deck_position_Y}}" onclick="setDeck(this)"
-                        data-deck-url="{% url 'editar_cartas' deck.id %}" data-deck-img="{{deck.card_back_image.url}}">
+                        data-deck-name="{{deck}}" data-deck-position="{{deck.deck_position_X}},{{deck.deck_position_Y}}"
+                        onclick="setDeck(this)" data-deck-url="{% url 'editar_cartas' deck.id %}"
+                        data-deck-img="{{deck.card_back_image.url}}">
                         {{deck}}
                     </button>
+                    {% else %}
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse{{deck}}" aria-expanded="true" aria-controls="collapse{{deck}}"
+                        data-deck-name="{{deck}}" data-deck-position="{{deck.deck_position_X}},{{deck.deck_position_Y}}"
+                        onclick="setDeck(this)" data-deck-url="{% url 'ver_cartas' deck.id %}"
+                        data-deck-img="{{deck.card_back_image.url}}">
+                        {{deck}}
+                    </button>
+                    {% endif %}
                 </h2>
                 <div id="collapse{{deck}}" class="accordion-collapse collapse" data-bs-parent="#accordionDecks">
                     <div class="accordion-body row">
                         <img class="col-3" src="{{deck.card_back_image.url}}">
                         <strong class="col-9">{{deck.short_description}}</strong>
                         <div class="d-flex flex-row column-gap-2">
+                            {% if logged_user %}
                             <a class="btn btn-sm btn-primary col-6 mt-2" target="verCartas" data-bs-toggle="modal"
                                 data-bs-target="#showCardFamilyModal">Editar
                                 cartas</a>
@@ -91,6 +110,12 @@ Editar - {{game.title}}
                                 data-bs-target="#positionCardModal">
                                 Posicionar no Tabuleiro
                             </button>
+                            {% else %}
+                            <a class="btn btn-sm btn-primary col-6 mt-2" target="verCartas" data-bs-toggle="modal"
+                                data-bs-target="#showCardFamilyModal">Ver
+                                cartas</a>
+
+                            {% endif %}
 
                         </div>
                     </div>
